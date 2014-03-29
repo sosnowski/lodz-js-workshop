@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8">
 
-		<title>reveal.js - The HTML Presentation Framework</title>
+		<title>JS Workshop - The Presentation</title>
 
 		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
 		<meta name="author" content="Hakim El Hattab">
@@ -37,6 +37,159 @@
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
 
+				<section>
+					<h1>Registration</h1>
+					<h3>Simple form with the HTML5 validation</h3>
+				</section>
+
+				<section>
+
+					<section>
+						<h2>Registration</h2>
+						<h4>Field types</h4>
+					</section>
+
+					<section>
+						<h2>Email</h2>
+						<p>Email address validation</p>
+						<img src="img/html5_email.jpg" />
+					</section>
+
+					<section>
+						<h2>Date</h2>
+						<p>Built-in date picker</p>
+						<img src="img/html5_date.jpg" />
+					</section>
+
+					<section>
+						<h2>Time</h2>
+						<p>Selection time according to the specified format</p>
+						<img src="img/html5_time.jpg" />
+					</section>
+
+					<section>
+						<h2>Number</h2>
+						<p>Number validation</p>
+						<img src="img/html5_number.jpg" />
+					</section>
+
+					<section>
+						<h2>Color</h2>
+						<p>Built-in color picker</p>
+						<img src="img/html5_color.jpg" />
+					</section>
+
+					<section>
+						<h2>Range</h2>
+						<p>Slider control</p>
+						<img src="img/html5_range.jpg" />
+					</section>
+
+				</section>
+
+				<section>
+					<h2>Registration</h2>
+					<h4>The code</h4>
+					<pre><code>
+<form method="POST">
+    <fieldset>
+        <div>
+            <label for="username">Username</label>
+            <input type="mail" name="username" placeholder="Please enter username..." required="required" />
+        </div>
+        <div>
+            <label for="birthday">Day of birth</label>
+            <input type="date" name="birthday" placeholder="Please enter your birthday..." required="required" />
+        </div>  
+        <div>
+            <label for="passwd">Password</label>
+            <input type="password" name="password" autocomplete="off" required="required" />
+        </div>
+        <div>
+            <button type="submit">Register</button>
+        </div>
+    </fieldset>
+</form>
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>Registration</h2>
+					<h4>Look 'n' feel</h4>
+					<!-- SCREENSHOT HERE -->
+				</section>
+
+				<section>
+					<h2>Registration</h2>
+					<h4>How to obtain the form values and pass them to controller?</h4>						
+					<pre><code data-trim>
+var form = document.querySelector('.register-form');
+form.addEventListener('submit', function (event) {
+    event.preventDefault();
+    var form = event.target,
+        formData = new FormData(form);
+    controller.fire('register', formData);
+});
+					</code></pre>
+				</section>
+
+				<section>
+					<h1>Login</h1>
+					<h3>Simple authorization</h3>
+				</section>
+
+				<section>
+					<h2>Login</h2>
+					<h4>Look 'n' feel</h4>
+					<!-- SCREENSHOT HERE -->
+				</section>
+
+				<section>
+					<h2>Login</h2>
+					<h4>The code</h4>
+					<pre><code>
+<form method="GET">
+    <fieldset>
+        <div>
+            <label for="username">Username</label>
+            <input type="mail" name="username" placeholder="Please enter username..." required="required" />
+        </div>
+        <div>
+            <label for="passwd">Password</label>
+            <input type="password" name="password" autocomplete="off" required="required" />
+        </div>
+        <div>
+            <button type="submit">Login</button>
+        </div>
+    </fieldset>
+</form>
+					</code></pre>
+				</section>
+
+				<section id="fragments">
+					<h2>Login</h2>
+					<h4>How to log user?</h4>
+					<div class="fragment">
+						<p>View</p>
+						<pre><code data-trim>
+var form = document.querySelector('.login-form');
+form.addEventListener('submit', function (event) {
+    event.preventDefault();
+    var form = event.target,
+        formData = new FormData(form);
+    controller.fire('login', formData);
+});
+						</code></pre>
+					</div>
+					<div class="fragment">
+						<p>Controller</p>
+						<pre><code data-trim>
+this.on('login', function (formData) {
+	model.logIn(formData);
+});
+						</code></pre>
+					</div>
+				</section>
 
 			</div>
 
