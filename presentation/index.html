@@ -16,6 +16,7 @@
 
 		<link rel="stylesheet" href="css/reveal.min.css">
 		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+		<link rel="stylesheet" href="css/custom.css">
 
 		<!-- For syntax highlighting -->
 		<link rel="stylesheet" href="lib/css/zenburn.css">
@@ -39,39 +40,74 @@
 
 				<section>Application architecture</section>
 				<section>
-					<h1>MVC - well known architecture pattern</h1>
-					Application is divided into separated functional layers: Model, View and Controller
+					<h3>MVC architecture</h3>
+					<p>Application is divided into separated functional layers:</p>
 					<ul>
 						<li><b>Model</b> - stores data and sometimes data - related logic</li>
 						<li><b>View</b> - presenatation layer, defines and performs view - related operations</li>
 						<li><b>Controller</b> - business logic, connect other layers</li>
 					</ul>
 				</section>
-				<section>MVC - schemat</section>
-				<section>Mutacje MVC - różne frameworki
-				<ul>
-				<li>Pure MVC (ExtJS)</li>
-				<li>MVVM (AngularJS)</li>
-				<li>MV* (Backbone)</li>
-				</ul>
+				<section>
+					<h3>MVC</h3>
+					<img src="img/mvc.png"/>
 				</section>
-				<section>Our mvc - schemat + opis
-					Schemacik, kontroller, który ma referencję do widoku i ewentualnych modeli. Widok emituje eventy, na których nasłuchuje kontroller.
-					Podobnie model. Kontroler wywołuje odpowiednie metody na widoku.
+				<section>
+					<h3>Multiple MVC implementations</h3>
+					<div class="columns">
+						<div><p>Typical MVC (ExtJS)</p><img src="img/mvc_extjs.png"/></div>
+						<div><p>MVVM (AngularJS)</p><img src="img/mvc_angular.png"/></div>
+						<div><p>MV* (Backbone)</p><img src="img/mvc_backbone.png"/></div>
+					</div>
 				</section>
-				<section>Tworzymy trzy, na razie puste, klasy</section>
-				<section>View oraz Model extends Emitter. Jak wspomniano widok i model powinny emitowac eventy. Więc musza dziedziczyc po EE</section>
-				<section>Omówienie dziedziczenia, łańcuch prototypowy
-				1. Przypomnienie czym jest prototyp. Utworzenie instancji, przypisany prototyp.
-				2. Lancuch prototypowy, jak wyszukiwany jest atrybut
-				3. Dziedicznie polega na podpięciu klasy pod poprawny łancuch prototypowy
+				<section>
+					<h3>Our (simple) MVC implementation</h3>
+					<img src="img/our_mvc.png"/>
 				</section>
-				<section>Funkcja dziedziczenia. Krok po kroku</section>
-				<section>Widok</section>
-				<section>Templaty - pobieranie templatów</section>
-				<section>Renderowanie elementu</section>
-				<section>Model - proste gettery i settery</section>
-				<section>Komunikacja z serwerem</section>
+				<section>
+					<h3>Three layers</h3>
+
+
+				</section>
+				<section>
+					<h3>Inheritance</h3>
+					<p>View and Model need to emit events. So they need to inherit EventEmitter functionality.</p>
+					<img src="img/ee_inheritance.png"/>
+				</section>
+				<section>
+					<h3>Inheritance - JavaScript version</h3>
+					<p>Inheritance in JavaScript is based on prototypes.</p> <p>So called prototype chaing is used to store and call inherited methods / attributes.</p>
+					<p><img src="img/prototypes.png"/></p>
+				</section>
+				<section>
+					<h3>Inheritance - implementation</h3>
+				</section>
+				<section>
+					<h3>View</h3>
+				Widok - Klasa reprezentuje wybrany element na stronie
+
+				</section>
+				<section>
+					<h3>Templates</h3>
+					Templaty - pobieranie templatów
+				</section>
+				<section>
+					<h3>Element creation</h3>
+					Renderowanie elementu
+
+				</section>
+				<section>
+					<h3>Model</h3>
+					proste gettery i settery
+				</section>
+				<section>
+					<h3>Client - Server communication</h3>
+					<p>We will use websockets to load and send data to the server.</p>
+					<p>Client and Server are comunicating using events. Thanks to socket.io this method is simple, compatible and allows real time communication</p>
+
+					<img src="img/client_server.png"/>
+
+					</section>
 			</div>
 
 		</div>
