@@ -37,6 +37,42 @@
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
 
+				<section>Application architecture</section>
+				<section>
+					<h1>MVC - well known architecture pattern</h1>
+					Application is divided into separated functional layers: Model, View and Controller
+					<ul>
+						<li><b>Model</b> - stores data and sometimes data - related logic</li>
+						<li><b>View</b> - presenatation layer, defines and performs view - related operations</li>
+						<li><b>Controller</b> - business logic, connect other layers</li>
+					</ul>
+				</section>
+				<section>MVC - schemat</section>
+				<section>Mutacje MVC - różne frameworki
+				<ul>
+				<li>Pure MVC (ExtJS)</li>
+				<li>MVVM (AngularJS)</li>
+				<li>MV* (Backbone)</li>
+				</ul>
+				</section>
+				<section>Our mvc - schemat + opis
+					Schemacik, kontroller, który ma referencję do widoku i ewentualnych modeli. Widok emituje eventy, na których nasłuchuje kontroller.
+					Podobnie model. Kontroler wywołuje odpowiednie metody na widoku.
+				</section>
+				<section>Tworzymy trzy, na razie puste, klasy</section>
+				<section>View oraz Model extends Emitter. Jak wspomniano widok i model powinny emitowac eventy. Więc musza dziedziczyc po EE</section>
+				<section>Omówienie dziedziczenia, łańcuch prototypowy
+				1. Przypomnienie czym jest prototyp. Utworzenie instancji, przypisany prototyp.
+				2. Lancuch prototypowy, jak wyszukiwany jest atrybut
+				3. Dziedicznie polega na podpięciu klasy pod poprawny łancuch prototypowy
+				</section>
+				<section>Funkcja dziedziczenia. Krok po kroku</section>
+				<section>Widok</section>
+				<section>Templaty - pobieranie templatów</section>
+				<section>Renderowanie elementu</section>
+				<section>Model - proste gettery i settery</section>
+				<section>Komunikacja z serwerem</section>
+
 				<section>
 					<h1>Registration</h1>
 					<h3>Simple form with the HTML5 validation</h3>
