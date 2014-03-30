@@ -158,14 +158,16 @@
 				<section>
 					<h2>Registration</h2>
 					<h4>How to obtain the form values and pass them to controller?</h4>						
-					<pre><code data-trim>
-var form = document.querySelector('.register-form');
-form.addEventListener('submit', function (event) {
-    event.preventDefault();
-    var form = event.target,
-        formData = new FormData(form);
-    controller.fire('register', formData);
-});
+					<pre><code>
+	var self = this,
+	    form = document.querySelector('.register-form');
+
+	form.addEventListener('submit', function (event) {
+	    event.preventDefault();
+	    var form = event.target,
+	        formData = new FormData(form);
+	    self.fire('register', formData);
+	});
 					</code></pre>
 				</section>
 
@@ -202,29 +204,218 @@ form.addEventListener('submit', function (event) {
 					</code></pre>
 				</section>
 
-				<section id="fragments">
+				<section id="login">
 					<h2>Login</h2>
 					<h4>How to log user?</h4>
 					<div class="fragment">
 						<p>View</p>
-						<pre><code data-trim>
-var form = document.querySelector('.login-form');
-form.addEventListener('submit', function (event) {
+						<pre><code>
+var self = this;
+
+document.querySelector('.login-form').addEventListener('submit', function (event) {
     event.preventDefault();
     var form = event.target,
         formData = new FormData(form);
-    controller.fire('login', formData);
+    self.fire('login', formData);
 });
 						</code></pre>
 					</div>
 					<div class="fragment">
 						<p>Controller</p>
-						<pre><code data-trim>
-this.on('login', function (formData) {
-	model.logIn(formData);
-});
+						<pre><code>
+	view.on('login', function (formData) {
+	    model.logIn(formData);
+	});
 						</code></pre>
 					</div>
+				</section>
+
+				<section id="ajax">
+					<h2>Registration &amp; Login</h2>
+					<h4>How to send data to the server?</h4>
+					<div class="fragment">
+						<pre><code>
+	var formEl = document.querySelector('.target-form'),
+	    formData = new FormData(formEl),
+	    xhr = new XMLHttpRequest();
+
+	xhr.open('POST', '/server', true);
+	xhr.onload = function(e) { ... };
+	xhr.send(formData);
+						</code></pre>
+					</div>
+				</section>
+
+				<section>
+					<h2>List of tweets</h2>
+					<h4>Real-time communication between client and server</h4>
+				</section>
+
+				<section>
+
+					<section>
+						<h2>Tweets and WebSockets</h2>
+						<h4>How to get data from the server in real-time?</h4>
+					</section>
+
+					<section>
+						<h2>Create WebSocket</h2>
+						<pre><code>
+	var exampleSocket = new WebSocket(
+	    'ws://www.example.com/socketserver',
+	    'protocol_name'
+	);
+						</code></pre>
+					</section>
+
+					<section>
+						<h2>Receiving messages from the server</h2>
+						<pre><code>
+	exampleSocket.onmessage = function (event) {
+	    console.log(event.data);
+	};
+						</code></pre>
+					</section>
+
+					<section>
+						<h2>Passing data to the view</h2>
+						<pre><code>
+	view.renderList(data);
+						</code></pre>
+					</section>
+
+				</section>
+
+				<section>
+					
+					<section>
+						<h2>Tweets and WebSockets</h2>
+						<h4>Adding a new tweet</h4>
+					</section>
+
+					<section>
+						<h2>React on the button clicks</h2>
+						<pre><code>
+	var self = this,
+	    btn = document.querySelector('.add-tweet-btn');
+
+	btn.addEventListener('click', function () {
+	    /* show adding tweet form */
+	});
+						</code></pre>
+					</section>
+
+					<section>
+						<h2>Get form values</h2>
+						<p>There is no way to send the FormData via WebSockets ...</p>
+						<pre><code>
+	var self = this;
+
+	document.querySelector('.add-tweet-form', function (event) {
+	    event.preventDefault();
+	    var form = event.target,
+	        data = {
+	            title: form.elements['tweet-title'],
+	            msg: form.elements['tweet-msg']
+	        };
+	    self.fire('addtweet', data);
+	});
+						</code></pre>
+					</section>
+
+					<section>
+						<h2>Send data in real-time</h2>
+						<p>... so we have to parse the data to JSON string</p>
+						<pre><code>
+	view.on('addtweet', function (data) {
+	    data = JSON.stringify(data);
+	    exampleSocket.send(data);
+	});
+						</code></pre>
+					</section>
+
+					<section>
+						<h2>Add a tweet to the list</h2>
+						<p>Controller</p>
+						<pre><code>
+	exampleSocket.onmessage = function (event) {
+	    model.addItem(event.data);
+	};
+
+	model.on('additem', function (data) {
+	    view.addTweet(data);
+	});
+						</code></pre>
+						<p>View</p>
+						<pre><code>
+	var addTweet = function (data) {
+	    var listEl = document.querySelector('.tweets-list'),
+	        tweetEl = this.render(data);
+	    if (tweetEl) {
+	        listEl.appendChild(tweetEl);
+	    }
+	};
+						</code></pre>	
+					</section>
+
+				</section>
+
+				<section>
+					
+					<section>
+						<h2>Tweets and WebSockets</h2>
+						<h4>Removing tweets</h4>
+					</section>
+
+					<section>
+						<h2>React on buttons clicks</h2>
+						<p>We use the event delegation</p>
+						<pre><code>
+	var self = this,
+	    list = document.querySelector('.tweets-list');
+
+	list.addEventListener('click', function (event) {
+	    var target = event.target;
+	    if (target.tagName === 'LI') {
+	        self.fire('removetweet', target.dataset.id);
+	    }
+	});
+						</code></pre>
+					</section>
+
+					<section>
+						<h2>Send data to the server</h2>
+						<pre><code>
+	view.on('removetweet', function (id) {
+	    exampleSocket.send(id);
+	});
+						</code></pre>
+					</section>
+
+					<section>
+						<h2>Remove a tweet from list</h2>
+						<p>Controller</p>
+						<pre><code>
+	exampleSocket.onmessage = function (event) {
+	    model.removeItem(event.data);
+	};
+
+	model.on('removeitem', function (id) {
+	    view.removeTweet(id);
+	});
+						</code></pre>
+						<p>View</p>
+						<pre><code>
+	var removeTweet = function (id) {
+	    var listEl = document.querySelector('.tweets-list'),
+	        tweetEl = listEl.querySelector('[data-id="' + id + '"]');
+	    if (tweetEl) {
+	        listEl.removeChild(tweetEl);
+	    }
+	};
+						</code></pre>		
+					</section>
+
 				</section>
 
 			</div>
