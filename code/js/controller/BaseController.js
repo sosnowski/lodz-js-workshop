@@ -1,7 +1,7 @@
-APP.Controller = function () {
+APP.BaseController = function () {
 
 }
 
-APP.Controller.prototype = {
+APP.BaseController.prototype = {
 
 }

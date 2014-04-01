@@ -66,8 +66,39 @@
 				</section>
 				<section>
 					<h3>Three layers</h3>
+						<pre><code>
+//js/view/BaseView.js
+APP.BaseView = function () {
 
+};
 
+APP.BaseView.prototype = {
+
+};
+
+// ...
+
+//js/controller/BaseController.js
+APP.BaseController = function () {
+
+}
+
+APP.BaseController.prototype = {
+
+}
+
+// ...
+
+//js/model/BaseModel.js
+APP.BaseModel = function () {
+
+}
+
+App.BaseModel.prototype = {
+
+}
+
+					</code></pre>
 				</section>
 				<section>
 					<h3>Inheritance</h3>
@@ -81,20 +112,77 @@
 				</section>
 				<section>
 					<h3>Inheritance - implementation</h3>
+					<pre><code>
+App.Helpers = {
+	inherits: function (Parent, Child) {
+		//We need to create a proper prototype chain here
+	}
+}
+</code></pre>
 				</section>
 				<section>
-					<h3>View</h3>
-				Widok - Klasa reprezentuje wybrany element na stronie
+					<h3>Inheritance - implementation</h3>
+					<pre><code>
+	inherits: function (Parent, Child) {
+		Child.prototype = Parent.prototype;
+	}
+</code></pre>
+					<p class="fragment error">NOPE</p>
+				</section>
+				<section>
+					<h3>Inheritance - implementation</h3>
+					<pre><code>
+	inherits: function (Parent, Child) {
+		Child.prototype = new Parent();
+	}
+					</code></pre>
+					<pre class="fragment"><code>
+	Parent = function () {
+		this.smth = performHeavyOperation();
+	}
+					</code></pre>
+				</section>
+
+				<section>
+					<h3>Inheritance - implementation</h3>
+					<pre><code>
+	inherits: function (Parent, Child) {
+		var F = function () {};
+		F.prototype = Parent.prototype;
+		Child.prototype = new F();
+		Child.prototype.constructor = Child;
+	}</code></pre>
+				</section>
+
+				<section>
+					<h2>View</h2>
+					<p>View represents some DOM element. It encapsulates view structure and logic.</p>
+					<p>We will create multiple view classes but all will inherit basic functionality from the BaseView class</p>
 
 				</section>
 				<section>
 					<h3>Templates</h3>
-					Templaty - pobieranie templatów
+					<pre><code>
+<script type="text/html" id="templateId">
+	<div>
+	Some template it is
+	</div>
+</script>
+				</code></prev>
+				<pre class="fragment"><code>
+getTemplate: function (templateId) {
+	var template = document.getElementById(templateId);
+	return template.innerHTML;
+}
+				</code></pre>
 				</section>
 				<section>
 					<h3>Element creation</h3>
-					Renderowanie elementu
+					<pre><code>
+render: function (html, callback) {
 
+}
+				</code></pre>
 				</section>
 				<section>
 					<h3>Model</h3>
@@ -107,7 +195,22 @@
 
 					<img src="img/client_server.png"/>
 
-					</section>
+				</section>
+
+				<section>
+					<h3>Connecting to the server</h3>
+					<pre><code>
+APP.MainController.prototype = {
+	connectToTheServer: function () {
+		var socket = io.connect('http://localhost');
+		socket.on('news', function (data) {
+			console.log(data);
+			socket.emit('my other event', { my: 'data' });
+		});
+	}
+};
+				</code></pre>
+				</section>
 
 				<section>
 					<h1>Registration</h1>
@@ -172,7 +275,7 @@
         <div>
             <label for="birthday">Day of birth</label>
             <input type="date" name="birthday" placeholder="Please enter your birthday..." required="required" />
-        </div>  
+        </div>
         <div>
             <label for="passwd">Password</label>
             <input type="password" name="password" autocomplete="off" required="required" />
@@ -193,7 +296,7 @@
 
 				<section>
 					<h2>Registration</h2>
-					<h4>How to obtain the form values and pass them to controller?</h4>						
+					<h4>How to obtain the form values and pass them to controller?</h4>
 					<pre><code>
 	var self = this,
 	    form = document.querySelector('.register-form');
@@ -323,7 +426,7 @@ document.querySelector('.login-form').addEventListener('submit', function (event
 				</section>
 
 				<section>
-					
+
 					<section>
 						<h2>Tweets and WebSockets</h2>
 						<h4>Adding a new tweet</h4>
@@ -391,13 +494,13 @@ document.querySelector('.login-form').addEventListener('submit', function (event
 	        listEl.appendChild(tweetEl);
 	    }
 	};
-						</code></pre>	
+						</code></pre>
 					</section>
 
 				</section>
 
 				<section>
-					
+
 					<section>
 						<h2>Tweets and WebSockets</h2>
 						<h4>Removing tweets</h4>
@@ -449,7 +552,7 @@ document.querySelector('.login-form').addEventListener('submit', function (event
 	        listEl.removeChild(tweetEl);
 	    }
 	};
-						</code></pre>		
+						</code></pre>
 					</section>
 
 				</section>
