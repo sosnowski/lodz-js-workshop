@@ -1,12 +1,12 @@
-APP.View = function () {
+APP.BaseView = function () {
 
 };
 
-APP.View.prototype = {
+APP.BaseView.prototype = {
 	getTemplate: function (templateId) {
 
 	},
-	render: function (template) {
+	render: function (html, callback) {
 
 	}
 };
