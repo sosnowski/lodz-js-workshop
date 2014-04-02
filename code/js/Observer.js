@@ -1,6 +1,10 @@
 var APP = APP || {};
 
-APP.Observer = {
+App.Observer = function () {
+    
+};
+
+APP.Observer.prototype = {
     _events: {},
 
     on: function (event, fn, scope) {
