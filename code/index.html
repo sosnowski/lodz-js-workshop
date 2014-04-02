@@ -7,8 +7,17 @@
 	<link rel="stylesheet" href="css/app.css">
 </head>
 <body>
-	<header>
-		<h1>Our users have written <strong>102</strong> messages so far!</h1>
+	<header id="app-header">
+		<div>
+			<h1>Our users have written <strong>102</strong> messages so far!</h1>
+			<section class="user-info">
+				<img src="img/user.png" width="30" height="30" />
+				<span>
+					<strong>Michał Jaskólski</strong>
+					<a href="mailto:michal@jaskolski.pro">michal@jaskolski.pro</a>
+				</span>
+			</section>
+		</div>
 	</header>
 	<div id="container">
 		<section class="tweets">
@@ -40,10 +49,14 @@
 			</ul>
 		</section>
 	</div>
-	<footer>
-		<section class="add-tweet">
-			<button>Join the conversation</button>
-		</section>
+	<footer id="app-footer">
+		<div>
+			<button class="add-tweet-button" style="display: none;">Join the conversation</button>
+			<form class="add-tweet-form">
+				<img src="img/user.png" width="50" height="50" />
+				<textarea name="tweet-msg" maxlength="140"></textarea>
+			</form>
+		</div>
 	</footer>
 </body>
 </html>

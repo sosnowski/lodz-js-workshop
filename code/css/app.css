@@ -12,34 +12,90 @@ body {
 
 /* HEADER */
 
-body > header {
+#app-header {
 	position: fixed;
 	z-index: 1;
 	top: 0;
 	width: 100%;
-	height: 3.3em;
 	background-color: #000;
 	border-bottom: 2px solid #5ac;
 	box-shadow: 0 0 5px 0 rgba(50, 50, 50, 0.75);
+	display: -webkit-box;
+	display: -moz-box;
+	-webkit-box-align: center;
+	-moz-box-align: center;
 }
 
-body > header h1 {
-	font-size: 1.5em;
-	font-weight: normal;
-	line-height: 1;
-	color: #fff;
+#app-header > div {
+	display: table;
+	padding: 0.5em 0;
 	width: 60%;
 	margin: auto;
-	padding: 0.6em 0;
+	color: #fff;
+}
+
+#app-header h1,
+.user-info {
+	display: table-cell;
+	vertical-align: middle;
+}
+
+#app-header h1 {
+	font-size: 1.5em;
+	font-weight: normal;
+	padding-right: 1em;
+	height: 32px;
+}
+
+#app-header h1 > strong {
+	font-weight: bold;
+}
+
+.user-info {
+	width: 190px;
+}
+
+.user-info img {
+	float: left;
+	margin-right: 5px;
+	border: 1px solid rgba(255, 255, 255, 0.7);
+}
+
+.user-info span {
+	display: inline-block;
+}
+
+.user-info strong,
+.user-info a {
+	display: block;
+}
+
+.user-info strong {
+	font-size: 1.2em;
+	line-height: 1.2em;
+}
+
+.user-info a {
+	font-size: 0.9em;
+	color: #fff;
+	text-decoration: none;
+	transition: opacity 300ms ease-in;
+}
+
+.user-info a:focus,
+.user-info a:hover,
+.user-info a:active {
+	opacity: 0.5;
 }
 
 /* MAIN CONTAINER */
 
 #container {
 	width: 50%;
-	height: calc(100% - 10.3em);
+	height: calc(100% - 11.3em);
+	min-height: 400px;
 	margin: 0 auto 1em;
- 	padding-top: 3.3em;
+ 	padding-top: 3.5em;
 	background-color: rgba(255, 255, 255, 0.8);
 }
 
@@ -91,22 +147,26 @@ body > header h1 {
 
 /* FOOTER */
 
-body > footer {
+#app-footer {
 	width: 100%;
-	height: 5em;
 }
 
-body > footer > section {
+#app-footer > div {
 	width: 50%;
-	height: 100%;
 	margin: auto;
+	background-color: rgba(255, 255, 255, 0.8);
+
 }
 
 /* ADD TWEET */
 
-.add-tweet button {
+.add-tweet-button {
+	background-color: rgba(255, 255, 255, 0.8);
+}
+
+.add-tweet-button {
 	width: 100%;
-	height: 100%;
+	height: calc(50px + 1.5rem);
 	background: none;
 	border: none;
 	margin: 0;
@@ -118,8 +178,45 @@ body > footer > section {
 	transition: background 0.3s ease-in;
 }
 
-.add-tweet button:focus,
-.add-tweet button:hover,
-.add-tweet button:active {
+.add-tweet-button:focus,
+.add-tweet-button:hover,
+.add-tweet-button:active {
 	background-color: #1d94ee;
+}
+
+.add-tweet-form {
+	display: table;
+	width: 100%;
+}
+
+.add-tweet-form > img,
+.add-tweet-form > textarea {
+	vertical-align: middle;
+}
+
+.add-tweet-form > img {
+	padding: 1em;
+}
+
+.add-tweet-form > textarea {
+	box-sizing: border-box;
+	height: 50px;
+	width: calc(100% - 50px - 3em);
+	font-family: inherit;
+	font-size: 0.9em;
+	padding: 0.5em;
+	border-color: #aaa;
+}
+
+/* POPUP */
+
+#popup {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: -100px 0 0 -200px;
+	padding: 1em;
+	height: 200px;
+	width: 400px;
+	background-color: rgba(255, 255, 255, 0.9);
 }
