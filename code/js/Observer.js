@@ -1,7 +1,7 @@
 var APP = APP || {};
 
 App.Observer = function () {
-    
+
 };
 
 APP.Observer.prototype = {

@@ -163,12 +163,13 @@ App.Helpers = {
 				<section>
 					<h3>Templates</h3>
 					<pre><code>
-<script type="text/html" id="templateId">
-	<div>
-	Some template it is
-	</div>
-</script>
-				</code></prev>
+&lt;script type="text/html" id="templateId"&gt;
+	&lt;div&gt;
+		Some template it is
+	&lt;/div&gt;
+&lt;/script&gt;
+				</code></pre
+				>
 				<pre class="fragment"><code>
 getTemplate: function (templateId) {
 	var template = document.getElementById(templateId);
@@ -180,14 +181,18 @@ getTemplate: function (templateId) {
 					<h3>Element creation</h3>
 					<pre><code>
 render: function (html, callback) {
-
+	var el = document.createElement('div');
+	el.innerHTML = html;
+	return el.firstChild;
 }
 				</code></pre>
 				</section>
 				<section>
-					<h3>Model</h3>
-					proste gettery i settery
+					<h2>Model</h2>
+					<h4>In our case model is just a simple plain object that stores data</h4>
 				</section>
+
+				<section>
 				<section>
 					<h3>Client - Server communication</h3>
 					<p>We will use websockets to load and send data to the server.</p>
@@ -203,13 +208,42 @@ render: function (html, callback) {
 APP.MainController.prototype = {
 	connectToTheServer: function () {
 		var socket = io.connect('http://localhost');
-		socket.on('news', function (data) {
-			console.log(data);
-			socket.emit('my other event', { my: 'data' });
-		});
+		APP.socket = socket;
 	}
 };
 				</code></pre>
+				</section>
+				<section>
+				<h2>Communication</h2>
+				<pre class="fragment"><code>
+//receive server event
+APP.socket.on('tweet', function (data) {
+	console.log(data); // do something
+});				</code></pre>
+				<pre class="fragment"><code>
+APP.socket.emit('login', loginData);
+				</code></pre>
+				</section>
+
+				</section>
+
+				<section>
+
+					<h1>Application implementation</h1>
+
+				</section>
+
+				<section>
+					<h2>Application parts</h2>
+					Schema
+				</section>
+
+				<section>
+					<h2>Application instance</h2>
+				</section>
+
+				<section>
+					<h2>Main Controller</h2>
 				</section>
 
 				<section>
@@ -288,11 +322,6 @@ APP.MainController.prototype = {
 					</code></pre>
 				</section>
 
-				<section>
-					<h2>Registration</h2>
-					<h4>Look 'n' feel</h4>
-					<!-- SCREENSHOT HERE -->
-				</section>
 
 				<section>
 					<h2>Registration</h2>
@@ -305,25 +334,27 @@ APP.MainController.prototype = {
 	    event.preventDefault();
 	    var form = event.target,
 	        formData = new FormData(form);
-	    self.fire('register', formData);
+	    self.fire('submit', formData);
 	});
 					</code></pre>
 				</section>
 
 				<section>
+					<h2>Registration</h2>
+					<h4>Controller</h4>
+
+					<ul>
+						<li>Send data to the server</li>
+					</ul>
+				</section>
+
+				<section>
 					<h1>Login</h1>
-					<h3>Simple authorization</h3>
 				</section>
 
 				<section>
 					<h2>Login</h2>
-					<h4>Look 'n' feel</h4>
-					<!-- SCREENSHOT HERE -->
-				</section>
-
-				<section>
-					<h2>Login</h2>
-					<h4>The code</h4>
+					<h4>View template</h4>
 					<pre><code>
 <form method="GET">
     <fieldset>
@@ -343,44 +374,12 @@ APP.MainController.prototype = {
 					</code></pre>
 				</section>
 
-				<section id="login">
-					<h2>Login</h2>
-					<h4>How to log user?</h4>
-					<div class="fragment">
-						<p>View</p>
-						<pre><code>
-var self = this;
-
-document.querySelector('.login-form').addEventListener('submit', function (event) {
-    event.preventDefault();
-    var form = event.target,
-        formData = new FormData(form);
-    self.fire('login', formData);
-});
-						</code></pre>
-					</div>
-					<div class="fragment">
-						<p>Controller</p>
-						<pre><code>
-	view.on('login', function (formData) {
-	    model.logIn(formData);
-	});
-						</code></pre>
-					</div>
-				</section>
-
 				<section id="ajax">
 					<h2>Registration &amp; Login</h2>
 					<h4>How to send data to the server?</h4>
 					<div class="fragment">
 						<pre><code>
-	var formEl = document.querySelector('.target-form'),
-	    formData = new FormData(formEl),
-	    xhr = new XMLHttpRequest();
-
-	xhr.open('POST', '/server', true);
-	xhr.onload = function(e) { ... };
-	xhr.send(formData);
+App.Application.socket.emit('login', data);
 						</code></pre>
 					</div>
 				</section>
@@ -393,34 +392,20 @@ document.querySelector('.login-form').addEventListener('submit', function (event
 				<section>
 
 					<section>
-						<h2>Tweets and WebSockets</h2>
-						<h4>How to get data from the server in real-time?</h4>
+						<h2>Tweets</h2>
+						<h4>Dynamic list, updated in the real time</h4>
 					</section>
 
 					<section>
-						<h2>Create WebSocket</h2>
-						<pre><code>
-	var exampleSocket = new WebSocket(
-	    'ws://www.example.com/socketserver',
-	    'protocol_name'
-	);
-						</code></pre>
+						<h2>Tweets template</h2>
 					</section>
 
 					<section>
-						<h2>Receiving messages from the server</h2>
-						<pre><code>
-	exampleSocket.onmessage = function (event) {
-	    console.log(event.data);
-	};
-						</code></pre>
+						<h2>Whole list, based on one element</h2>
 					</section>
 
 					<section>
-						<h2>Passing data to the view</h2>
-						<pre><code>
-	view.renderList(data);
-						</code></pre>
+						<h2>Update list with new data</h2>
 					</section>
 
 				</section>
@@ -430,18 +415,6 @@ document.querySelector('.login-form').addEventListener('submit', function (event
 					<section>
 						<h2>Tweets and WebSockets</h2>
 						<h4>Adding a new tweet</h4>
-					</section>
-
-					<section>
-						<h2>React on the button clicks</h2>
-						<pre><code>
-	var self = this,
-	    btn = document.querySelector('.add-tweet-btn');
-
-	btn.addEventListener('click', function () {
-	    /* show adding tweet form */
-	});
-						</code></pre>
 					</section>
 
 					<section>
@@ -473,33 +446,25 @@ document.querySelector('.login-form').addEventListener('submit', function (event
 						</code></pre>
 					</section>
 
-					<section>
-						<h2>Add a tweet to the list</h2>
-						<p>Controller</p>
-						<pre><code>
-	exampleSocket.onmessage = function (event) {
-	    model.addItem(event.data);
-	};
-
-	model.on('additem', function (data) {
-	    view.addTweet(data);
-	});
-						</code></pre>
-						<p>View</p>
-						<pre><code>
-	var addTweet = function (data) {
-	    var listEl = document.querySelector('.tweets-list'),
-	        tweetEl = this.render(data);
-	    if (tweetEl) {
-	        listEl.appendChild(tweetEl);
-	    }
-	};
-						</code></pre>
-					</section>
-
 				</section>
 
 				<section>
+					<section>
+						<h2>Header</h2>
+						<h4>Display some additional info</h4>
+					</section>
+
+					<section>
+						<h2>Reaction on global events</h2>
+
+					</section>
+				</section>
+
+				<section>
+					<h1>It's alive!</h1>
+				</section>
+
+				<!-- <section>
 
 					<section>
 						<h2>Tweets and WebSockets</h2>
@@ -555,7 +520,7 @@ document.querySelector('.login-form').addEventListener('submit', function (event
 						</code></pre>
 					</section>
 
-				</section>
+				</section> -->
 
 			</div>
 
