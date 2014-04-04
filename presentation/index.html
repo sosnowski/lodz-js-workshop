@@ -39,11 +39,23 @@
 			<div class="slides">
 
 				<section>
-					<h3>Syntax</h3>
-					<p>C-like syntax</p>
-					<p>Dynamic typing</p>
-					<p>First-class functions</p>
-					<p>Prototype-based inheritance</p>
+					<h1>Modern JavaScript</h1>
+					<h2>in practice</h2>
+				</section>
+
+				<section>
+					<h2>Language basics</h2>
+				</section>
+
+				<section>
+					<h3>JavaScript has:</h3>
+					<ul>
+						<li>C-like syntax</li>
+						<li>Dynamic typing</li>
+						<li>First-class functions</li>
+						<li>Object Oriented / Functional</li>
+						<li>Prototype-based inheritance</li>
+					</ul>
 				</section>
 				<section>
 					<h3>Data types</h3>
@@ -68,9 +80,8 @@
 				</section>
 				<section>
 					<h3>Scope</h3>
-					<p>Function scope</p>
-					<pre>
-						<code>
+					<p>Function scope and context</p>
+					<pre><code>
 var a = 3;
 function foo () {
 	var b = 5;
@@ -81,28 +92,33 @@ function foo () {
 }
 foo(); // 3, 5, 7, Window
 console.log(a, b, c); // 3, undefined, undefined
-						</code>
-					</pre>
+						</code></pre>
 				</section>
 				<section>
-					<h3>Scope</h3>
-					<p>Function instance</p>
-					<pre>
-						<code>
-var fooObject = new foo(); // 3, 5, 7, foo
-						</code>
-					</pre>
-					<p>Change scope with bind, call or apply</p>
-					<pre>
-						<code>
-foo.call(document); // 3, 5, 7, document
-						</code>
-					</pre>
+					<h3>Context</h3>
+					<p>"this" in JavaScript is a dynamic value, it depends on how the function i called</p>
+
+					<pre><code>
+var func = function () { console.log(this); };
+func(); // window
+						</code></pre>
+					<pre><code>
+var obj = {};
+obj.func = func;
+obj.func(); // obj
+					</code></pre>
+					<p>Change context with bind, call or apply</p>
+					<pre><code>
+func.call(someObj); //someObj
+func.apply(someObj); //someObj
+var func2 = func.bind(someObj);
+func(); //window
+func2(); //someObj
+						</code></pre>
 				</section>
 				<section>
 					<h3>Closure</h3>
-					<pre>
-						<code>
+					<pre><code>
 function foo () {
 	var a = 2;
 	return function (b) {
@@ -111,15 +127,40 @@ function foo () {
 }
 var doubleMe = foo();
 console.log(doubleMe(3)); // 6
-						</code>
-					</pre>
+						</code></pre>
+				</section>
+				<section>
+					<h2>Time to practice</h2>
+				</section>
+
+				<section>
+					<h2>Namespace creation</h2>
+					<pre><code>
+window.App = {};
+				</code></pre>
+				</section>
+
+				<section>
+					<h2>Event Emitter</h2>
+
+				<pre><code>
+App.EventEmitter = function () {
+    // ...
+}
+
+App.EventEmitter.prototype.on = function (event, fn, scope) {
+	// ...
+};
+App.EventEmitter.prototype.off = function (event, fn, scope) {
+	// ...
+}
+App.EventEmitter.prototype.emit = function (event, data) {
+	// ...
+}</code></pre>
 				</section>
 				<section>
 					<h3>Event emitter implementation</h3>
-					<pre>
-						<code>
-var APP = APP || {};
-
+					<pre><code>
 App.EventEmitter = function () {
     this._events = {};
 }
@@ -130,20 +171,18 @@ App.EventEmitter.prototype.on = function (event, fn, scope) {
     }
     this._events[event].push({fn: fn, scope: scope || window);
 };
-						</code>
-					</pre>
+						</code></pre>
 				</section>
 
 				<section>
 					<h3>Event emitter implementation</h3>
-					<pre>
-						<code>
+					<pre><code>
 App.EventEmitter.prototype.off = function (event, fn, scope) {
     if (typeof this._events[event] !== 'undefined') {
         var n = _events[event].length;
         while (n--) {
-            if (this._events[event][n].fn === fn 
-            	&& (typeof scope === 'undefined' 
+            if (this._events[event][n].fn === fn
+            	&& (typeof scope === 'undefined'
             		|| scope === this._events[event][n].scope
             	)
             ) {
@@ -153,13 +192,11 @@ App.EventEmitter.prototype.off = function (event, fn, scope) {
 
     }
 };
-						</code>
-					</pre>
+						</code></pre>
 				</section>
 				<section>
 					<h3>Event emitter implementation</h3>
-					<pre>
-						<code>
+					<pre><code>
 App.EventEmitter.prototype.emit = function (event, data) {
     if (typeof this._events[event] !== 'undefined') {
         var i = 0,
@@ -169,13 +206,21 @@ App.EventEmitter.prototype.emit = function (event, data) {
         }
     }
 };
-						</code>
-					</pre>
+						</code></pre>
+				</section>
+
+				<section>
+					<h2>Now, something more advanced</h2>
+				</section>
+
+				<section>
+					<h2>(Almost) twitter app</h2>
+					<img src="img/app.png"/>
 				</section>
 
 				<section>Application architecture</section>
 				<section>
-					<h3>MVC architecture</h3>
+					<h2>MVC architecture</h2>
 					<p>Application is divided into separated functional layers:</p>
 					<ul>
 						<li><b>Model</b> - stores data and sometimes data - related logic</li>
@@ -184,11 +229,11 @@ App.EventEmitter.prototype.emit = function (event, data) {
 					</ul>
 				</section>
 				<section>
-					<h3>MVC</h3>
+					<h2>MVC</h2>
 					<img src="img/mvc.png"/>
 				</section>
 				<section>
-					<h3>Multiple MVC implementations</h3>
+					<h2>Multiple MVC implementations</h2>
 					<div class="columns">
 						<div><p>Typical MVC (ExtJS)</p><img src="img/mvc_extjs.png"/></div>
 						<div><p>MVVM (AngularJS)</p><img src="img/mvc_angular.png"/></div>
@@ -196,23 +241,21 @@ App.EventEmitter.prototype.emit = function (event, data) {
 					</div>
 				</section>
 				<section>
-					<h3>Our (simple) MVC implementation</h3>
+					<h2>Our (simple) MVC implementation</h2>
 					<img src="img/our_mvc.png"/>
 				</section>
 				<section>
-					<h3>Three layers</h3>
+					<h2>Three layers</h2>
 						<pre><code>
 //js/view/BaseView.js
 APP.BaseView = function () {
 
 };
-
 APP.BaseView.prototype = {
 
 };
-
-// ...
-
+</code></pre>
+<pre><code>
 //js/controller/BaseController.js
 APP.BaseController = function () {
 
@@ -221,9 +264,8 @@ APP.BaseController = function () {
 APP.BaseController.prototype = {
 
 }
-
-// ...
-
+</code></pre>
+<pre><code>
 //js/model/BaseModel.js
 APP.BaseModel = function () {
 
@@ -232,21 +274,20 @@ APP.BaseModel = function () {
 App.BaseModel.prototype = {
 
 }
-
 					</code></pre>
 				</section>
 				<section>
-					<h3>Inheritance</h3>
-					<p>View and Model need to emit events. So they need to inherit EventEmitter functionality.</p>
+					<h2>Inheritance</h2>
+					<p>View need to emit events. So it need to inherit EventEmitter functionality.</p>
 					<img src="img/ee_inheritance.png"/>
 				</section>
 				<section>
-					<h3>Inheritance - JavaScript version</h3>
+					<h2>Inheritance - JavaScript version</h2>
 					<p>Inheritance in JavaScript is based on prototypes.</p> <p>So called prototype chaing is used to store and call inherited methods / attributes.</p>
 					<p><img src="img/prototypes.png"/></p>
 				</section>
 				<section>
-					<h3>Inheritance - implementation</h3>
+					<h2>Inheritance - implementation</h2>
 					<pre><code>
 App.Helpers = {
 	inherits: function (Parent, Child) {
@@ -256,7 +297,7 @@ App.Helpers = {
 </code></pre>
 				</section>
 				<section>
-					<h3>Inheritance - implementation</h3>
+					<h2>Inheritance - implementation</h2>
 					<pre><code>
 	inherits: function (Parent, Child) {
 		Child.prototype = Parent.prototype;
@@ -265,7 +306,7 @@ App.Helpers = {
 					<p class="fragment error">NOPE</p>
 				</section>
 				<section>
-					<h3>Inheritance - implementation</h3>
+					<h2>Inheritance - implementation</h2>
 					<pre><code>
 	inherits: function (Parent, Child) {
 		Child.prototype = new Parent();
@@ -279,7 +320,7 @@ App.Helpers = {
 				</section>
 
 				<section>
-					<h3>Inheritance - implementation</h3>
+					<h2>Inheritance - implementation</h2>
 					<pre><code>
 	inherits: function (Parent, Child) {
 		var F = function () {};
@@ -296,7 +337,7 @@ App.Helpers = {
 
 				</section>
 				<section>
-					<h3>Templates</h3>
+					<h2>Templates</h2>
 					<pre><code>
 &lt;script type="text/html" id="templateId"&gt;
 	&lt;div&gt;
@@ -313,9 +354,9 @@ getTemplate: function (templateId) {
 				</code></pre>
 				</section>
 				<section>
-					<h3>Element creation</h3>
+					<h2>Element creation</h2>
 					<pre><code>
-render: function (html, callback) {
+render: function (html) {
 	var el = document.createElement('div');
 	el.innerHTML = html;
 	return el.firstChild;
@@ -329,7 +370,7 @@ render: function (html, callback) {
 
 				<section>
 				<section>
-					<h3>Client - Server communication</h3>
+					<h2>Client - Server communication</h2>
 					<p>We will use websockets to load and send data to the server.</p>
 					<p>Client and Server are comunicating using events. Thanks to socket.io this method is simple, compatible and allows real time communication</p>
 
@@ -338,7 +379,7 @@ render: function (html, callback) {
 				</section>
 
 				<section>
-					<h3>Connecting to the server</h3>
+					<h2>Connecting to the server</h2>
 					<pre><code>
 APP.MainController.prototype = {
 	connectToTheServer: function () {
@@ -352,11 +393,11 @@ APP.MainController.prototype = {
 				<h2>Communication</h2>
 				<pre class="fragment"><code>
 //receive server event
-APP.socket.on('tweet', function (data) {
+App.Application.socket.on('tweet', function (data) {
 	console.log(data); // do something
 });				</code></pre>
 				<pre class="fragment"><code>
-APP.socket.emit('login', loginData);
+App.Application.socket.emit('login', loginData);
 				</code></pre>
 				</section>
 
@@ -369,28 +410,26 @@ APP.socket.emit('login', loginData);
 				</section>
 
 				<section>
-					<h2>Application parts</h2>
-					Schema
+					<h2>Application modules</h2>
+					<p>Discussion...</p>
 				</section>
 
 				<section>
 					<h2>Application instance</h2>
+					<p>Central application point. It stores "global" variables, emits global events.</p>
+
 				</section>
 
 				<section>
-					<h2>Main Controller</h2>
-				</section>
-
-				<section>
-					<h1>Registration</h1>
-					<h3>Simple form with the HTML5 validation</h3>
+					<h2>Registration</h2>
+					<h4>Simple form with the HTML5 validation</h4>
 				</section>
 
 				<section>
 
 					<section>
 						<h2>Registration</h2>
-						<h4>Field types</h4>
+						<h4>HTML5 fields types</h4>
 					</section>
 
 					<section>
