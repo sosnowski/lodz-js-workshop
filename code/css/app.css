@@ -380,6 +380,8 @@ body {
 	margin-top: -4px;
 }
 
+/* MEDIA QUERIES */
+
 @media screen and (max-width: 600px) {
 	#app-header > div {
 		width: 96%;
@@ -393,4 +395,15 @@ body {
 	body {
 		overflow: auto;
 	}
+}
+
+/* SCROLLBAR */
+
+::-webkit-scrollbar {
+	width: 10px;
+	position: relative;
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: rgba(85, 170, 204, 0.7);
 }
