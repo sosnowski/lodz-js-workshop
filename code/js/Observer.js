@@ -1,38 +1,37 @@
 var APP = APP || {};
 
-App.Observer = function () {
+App.Observer = (function () {
+    var _events = {};
+    var Observer = function() {};
 
-};
-
-APP.Observer.prototype = {
-    _events: {},
-
-    on: function (event, fn, scope) {
-        if (typeof this._events[event] === 'undefined') {
-            this._events[event] = [];
+    Observer.prototype.on = function (event, fn, scope) {
+        if (typeof _events[event] === 'undefined') {
+            _events[event] = [];
         }
-        this._events[event].push({fn: fn, scope: scope || window);
-    },
+        _events[event].push({fn: fn, scope: scope || window);
+    };
 
-    off: function (event, fn, scope) {
-        if (typeof this._events[event] !== 'undefined') {
-            var n = this._events[event].length;
+    Observer.prototype.off = function (event, fn, scope) {
+        if (typeof _events[event] !== 'undefined') {
+            var n = _events[event].length;
             while (n--) {
-                if (this._events[event][n].fn === fn && (typeof scope === 'undefined' || scope === this._events[event][n].scope)) {
-                    this._events[event].splice(n, 1);
+                if (_events[event][n].fn === fn && (typeof scope === 'undefined' || scope === _events[event][n].scope)) {
+                    _events[event].splice(n, 1);
                 }
             }
 
         }
-    },
+    };
 
-    emit: function (event, data) {
-        if (typeof this._events[event] !== 'undefined') {
+    Observer.prototype.emit = function (event, data) {
+        if (typeof _events[event] !== 'undefined') {
             var i = 0,
-                n = this._events[event].length;
+                n = _events[event].length;
             for (i; i < n; ++i) {
-                this._events[event][i].fn.call(this._events[event][i].scope, data);
+                _events[event][i].fn.call(_events[event][i].scope, data);
             }
         }
-    }
-};
+    };
+
+    return Observer;
+})();
