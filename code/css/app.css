@@ -74,8 +74,14 @@ body {
 	border: 1px solid rgba(255, 255, 255, 0.7);
 }
 
-.logged-user-info span {
+.logged-user-info span,
+.logged-user-info button {
 	display: inline-block;
+	vertical-align: middle;
+}
+
+.logged-user-info span {
+	margin-right: 0.5em;
 }
 
 .logged-user-info strong,
@@ -99,6 +105,26 @@ body {
 .logged-user-info a:hover,
 .logged-user-info a:active {
 	opacity: 0.5;
+}
+
+.logged-user-info button {
+	background: url(../img/icons/logout.png) no-repeat center center;
+	border: none;
+	overflow: hidden;
+	padding: 0;
+	margin: 0;
+	text-indent: -999em;
+	width: 28px;
+	height: 28px;
+	cursor: pointer;
+	transition: opacity 300ms ease-in;
+}
+
+.logged-user-info button:focus,
+.logged-user-info button:hover,
+.logged-user-info button:active {
+	opacity: 0.5;
+	outline: none;
 }
 
 /* TWEETS */
@@ -215,14 +241,37 @@ body {
 	font-family: inherit;
 	font-size: 0.9em;
 	padding: 0.5em;
-	padding-right: 80px;
+	padding-right: 50px;
 	margin: 0;
 	border: 1px solid #aaa;
 	resize: none;
 }
 
+.add-tweet form > textarea:focus {
+	outline: none;
+    border-color: #5ac;
+    box-shadow: 0 0 5px rgba(85, 170, 204, 0.7);
+}
+
 .add-tweet form > button {
-	margin-left: -60px;
+	background: #fff url(../img/icons/send.png) no-repeat center center;
+	border: none;
+	overflow: hidden;
+	padding: 0;
+	margin: 0;
+	text-indent: -999em;
+	width: 46px;
+	height: 46px;
+	margin-left: -50px;
+	cursor: pointer;
+	transition: opacity 300ms ease-in;
+}
+
+.add-tweet form > button:focus,
+.add-tweet form > button:hover,
+.add-tweet form > button:active {
+	opacity: 0.7;
+	outline: none;
 }
 
 /* POPUP */
@@ -263,10 +312,11 @@ body {
 
 #popup h1 > i {
 	display: inline-block;
-	width: 40px;
-	height: 40px;
+	width: 58px;
+	height: 38px;
 	margin-bottom: -0.5rem;
-	/*background: ICON HERE */
+	background: url(../img/icons/user.png) no-repeat center center;
+	background-size: cover;
 }
 
 #popup h1 > strong {
