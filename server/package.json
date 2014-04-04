@@ -4,7 +4,8 @@
   "description": "",
   "main": "server.js",
   "dependencies": {
-    "socket.io": "~0.9.16"
+    "socket.io": "~0.9.16",
+    "nedb": "~0.10.5"
   },
   "devDependencies": {},
   "scripts": {
