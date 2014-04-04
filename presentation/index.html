@@ -524,8 +524,12 @@ App.Application.socket.emit('login', loginData);
 	form.addEventListener('submit', function (event) {
 	    event.preventDefault();
 	    var form = event.target,
-	        formData = new FormData(form);
-	    self.fire('submit', formData);
+	        data = {
+	            login: form.elements['user-login'],
+	            password: form.elements['user-password'],
+	            rePassword: form.elements['user-re-password']
+	    	};
+	    self.fire('register', data);
 	});
 					</code></pre>
 				</section>
@@ -610,7 +614,7 @@ App.Application.socket.emit('login', data);
 
 					<section>
 						<h2>Get form values</h2>
-						<p>There is no way to send the FormData via WebSockets ...</p>
+						<p>The same way as in the registration form</p>
 						<pre><code>
 	var self = this;
 
@@ -628,11 +632,10 @@ App.Application.socket.emit('login', data);
 
 					<section>
 						<h2>Send data in real-time</h2>
-						<p>... so we have to parse the data to JSON string</p>
+						<p>Controller emits socket event to the server</p>
 						<pre><code>
 	view.on('addtweet', function (data) {
-	    data = JSON.stringify(data);
-	    exampleSocket.send(data);
+	    App.Application.socket.emit('tweet', data);
 	});
 						</code></pre>
 					</section>
