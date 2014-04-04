@@ -352,11 +352,11 @@ App.Helpers.inherits(App.BaseView, App.EventEmitter);
 				<section>
 					<h2>Templates</h2>
 					<pre><code>
-&lt;script type="text/html" id="templateId"&gt;
+&lt;div class="template" id="templateId"&gt;
 	&lt;div&gt;
 		Some template it is
 	&lt;/div&gt;
-&lt;/script&gt;
+&lt;/div&gt;
 				</code></pre
 				>
 				<pre class="fragment"><code>
@@ -372,7 +372,7 @@ getTemplate: function (templateId) {
 render: function (html) {
 	var el = document.createElement('div');
 	el.innerHTML = html;
-	return el.firstChild;
+	return el.firstElementChild;
 }
 				</code></pre>
 				</section>
@@ -394,12 +394,7 @@ render: function (html) {
 				<section>
 					<h2>Connecting to the server</h2>
 					<pre><code>
-APP.MainController.prototype = {
-	connectToTheServer: function () {
-		var socket = io.connect('http://localhost');
-		APP.socket = socket;
-	}
-};
+App.Application.socket = io.connect(App.Config.serverUrl);
 				</code></pre>
 				</section>
 				<section>
@@ -489,28 +484,13 @@ App.Application.socket.emit('login', loginData);
 
 				<section>
 					<h2>Registration</h2>
-					<h4>The code</h4>
-					<pre><code>
-<form method="POST">
-    <fieldset>
-        <div>
-            <label for="username">Username</label>
-            <input type="mail" name="username" placeholder="Please enter username..." required="required" />
-        </div>
-        <div>
-            <label for="birthday">Day of birth</label>
-            <input type="date" name="birthday" placeholder="Please enter your birthday..." required="required" />
-        </div>
-        <div>
-            <label for="passwd">Password</label>
-            <input type="password" name="password" autocomplete="off" required="required" />
-        </div>
-        <div>
-            <button type="submit">Register</button>
-        </div>
-    </fieldset>
-</form>
-					</code></pre>
+					<h4>Form fields</h4>
+
+					<ul>
+						<li>login - type: email</li>
+						<li>password - type: password</li>
+						<li>birth - type: date</li>
+					</ul>
 				</section>
 
 
@@ -518,29 +498,29 @@ App.Application.socket.emit('login', loginData);
 					<h2>Registration</h2>
 					<h4>How to obtain the form values and pass them to controller?</h4>
 					<pre><code>
-	var self = this,
-	    form = document.querySelector('.register-form');
-
 	form.addEventListener('submit', function (event) {
-	    event.preventDefault();
-	    var form = event.target,
-	        data = {
-	            login: form.elements['user-login'],
-	            password: form.elements['user-password'],
-	            rePassword: form.elements['user-re-password']
-	    	};
-	    self.fire('register', data);
-	});
-					</code></pre>
+		var form, data;
+		event.preventDefault();
+
+		form = event.target;
+		data = {
+		        login: form.elements['login'].value,
+		        password: form.elements['password'].value,
+		        birth: form.elements['birth'].value
+		};
+		this.emit('register', data);
+	});</code></pre>
 				</section>
 
 				<section>
 					<h2>Registration</h2>
 					<h4>Controller</h4>
 
-					<ul>
-						<li>Send data to the server</li>
-					</ul>
+					<pre><code>
+this.view.hide();
+App.Application.socket.emit('register', data);
+App.Application.emit('logininit');
+</code></pre>
 				</section>
 
 				<section>
@@ -549,39 +529,12 @@ App.Application.socket.emit('login', loginData);
 
 				<section>
 					<h2>Login</h2>
-					<h4>View template</h4>
-					<pre><code>
-<form method="GET">
-    <fieldset>
-        <div>
-            <label for="username">Username</label>
-            <input type="mail" name="username" placeholder="Please enter username..." required="required" />
-        </div>
-        <div>
-            <label for="passwd">Password</label>
-            <input type="password" name="password" autocomplete="off" required="required" />
-        </div>
-        <div>
-            <button type="submit">Login</button>
-        </div>
-    </fieldset>
-</form>
-					</code></pre>
-				</section>
+					<h4>Form fields</h4>
 
-				<section id="ajax">
-					<h2>Registration &amp; Login</h2>
-					<h4>How to send data to the server?</h4>
-					<div class="fragment">
-						<pre><code>
-App.Application.socket.emit('login', data);
-						</code></pre>
-					</div>
-				</section>
-
-				<section>
-					<h2>List of tweets</h2>
-					<h4>Real-time communication between client and server</h4>
+					<ul>
+						<li>login - type: email</li>
+						<li>password - type: password</li>
+					</ul>
 				</section>
 
 				<section>
@@ -593,14 +546,38 @@ App.Application.socket.emit('login', data);
 
 					<section>
 						<h2>Tweets template</h2>
+						<pre><code>
+<ul>
+	<li>
+		<img src="img/user.png" width="48" height="48" />
+		<span>
+			<strong>Michał Jaskólski</strong>
+			<time datetime="13:01:20">13:01:20</time>
+		</span>
+		<p>This is an example message written by a registered user. Join the conversation to write your own!</p>
+	</li>
+</ul></code></pre>
 					</section>
 
 					<section>
 						<h2>Whole list, based on one element</h2>
+						<pre><code>
+this._tweetElement = this._tweetsList.querySelector('li');
+...
+var newEl = this._tweetElement.cloneNode(true);
+this._tweetsList.appendChild(newEl);</code></pre>
 					</section>
 
 					<section>
 						<h2>Update list with new data</h2>
+						<pre><code>
+App.Application.socket.on('tweet', this.onTweet.bind(this));
+...
+App.TweetsController.prototype.onTweet = function (data) {
+	data.forEach(function (oneTweet) {
+		this.view.addTweet(oneTweet);
+	}, this);
+}</code></pre>
 					</section>
 
 				</section>
@@ -616,17 +593,16 @@ App.Application.socket.emit('login', data);
 						<h2>Get form values</h2>
 						<p>The same way as in the registration form</p>
 						<pre><code>
-	var self = this;
+var form, data;
+event.preventDefault();
 
-	document.querySelector('.add-tweet-form', function (event) {
-	    event.preventDefault();
-	    var form = event.target,
-	        data = {
-	            title: form.elements['tweet-title'],
-	            msg: form.elements['tweet-msg']
-	        };
-	    self.fire('addtweet', data);
-	});
+form = event.target;
+data = {
+    msg: form.elements['tweet-msg'].value,
+    time: Date.now()
+};
+this.emit('add', data);
+form.reset();
 						</code></pre>
 					</section>
 
@@ -634,9 +610,7 @@ App.Application.socket.emit('login', data);
 						<h2>Send data in real-time</h2>
 						<p>Controller emits socket event to the server</p>
 						<pre><code>
-	view.on('addtweet', function (data) {
-	    App.Application.socket.emit('tweet', data);
-	});
+App.Application.socket.emit('tweet', data);
 						</code></pre>
 					</section>
 
@@ -646,11 +620,6 @@ App.Application.socket.emit('login', data);
 					<section>
 						<h2>Header</h2>
 						<h4>Display some additional info</h4>
-					</section>
-
-					<section>
-						<h2>Reaction on global events</h2>
-
 					</section>
 				</section>
 

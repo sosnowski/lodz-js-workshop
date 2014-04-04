@@ -38,7 +38,8 @@ io.sockets.on('connection', function (socket) {
 			_users.findOne({login: socket.user}, function(err, user) {
 				delete user.password;
 				data.user = user;
-				socket.broadcast.emit('tweet', data);
+				socket.emit('tweet', [data]);
+				socket.broadcast.emit('tweet', [data]);
 				_tweets.insert(data);
 			});
 		}
@@ -46,7 +47,7 @@ io.sockets.on('connection', function (socket) {
 
 	socket.on('load', function () {
 		_tweets.find({}, function(err, tweets) {
-			socket.emit('load', tweets);
+			socket.emit('tweet', tweets);
 		});
 	});
 });

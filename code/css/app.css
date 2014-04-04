@@ -74,6 +74,10 @@ body {
 	border: 1px solid rgba(255, 255, 255, 0.7);
 }
 
+.logged-user-info.no-user img {
+	display: none;
+}
+
 .logged-user-info span,
 .logged-user-info button {
 	display: inline-block;
@@ -204,6 +208,10 @@ body {
 	font-size: 2em;
 	cursor: pointer;
 	transition: all 0.3s ease-in;
+}
+
+.add-tweet.logged button[type="button"] {
+	display: none;
 }
 
 .add-tweet button[type="button"]:focus,
@@ -380,6 +388,14 @@ body {
 	margin-top: -4px;
 }
 
+#popup p.register {
+	text-align: center;
+}
+
+#popup.hidden {
+	display: none;
+}
+
 @media screen and (max-width: 600px) {
 	#app-header > div {
 		width: 96%;
@@ -393,4 +409,8 @@ body {
 	body {
 		overflow: auto;
 	}
+}
+
+.template {
+	display: none;
 }
