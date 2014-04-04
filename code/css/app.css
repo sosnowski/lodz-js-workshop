@@ -411,6 +411,17 @@ body {
 	}
 }
 
+/* SCROLLBAR */
+
+::-webkit-scrollbar {
+	width: 10px;
+	position: relative;
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: rgba(85, 170, 204, 0.7);
+}
+
 .template {
 	display: none;
 }
