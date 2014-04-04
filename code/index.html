@@ -9,8 +9,8 @@
 <body>
 	<header id="app-header">
 		<div>
-			<h1>Our users have written <strong>102</strong> messages so far!</h1>
-			<section class="user-info">
+			<h1 class="app-slogan">Our users have written <strong>102</strong> messages so far!</h1>
+			<section class="logged-user-info">
 				<img src="img/user.png" width="30" height="30" />
 				<span>
 					<strong>Michał Jaskólski</strong>
@@ -19,11 +19,11 @@
 			</section>
 		</div>
 	</header>
-	<div id="container">
+	<div id="app-container">
 		<section class="tweets">
 			<ul>
 				<li>
-					<img src="img/user.png" width="50" height="50" />
+					<img src="img/user.png" width="48" height="48" />
 					<span>
 						<strong>Michał Jaskólski</strong>
 						<time datetime="13:01:20">13:01:20</time>
@@ -31,7 +31,7 @@
 					<p>This is an example message written by a registered user. Join the conversation to write your own!</p>
 				</li>
 				<li>
-					<img src="img/user.png" width="50" height="50" />
+					<img src="img/user.png" width="48" height="48" />
 					<span>
 						<strong>Michał Jaskólski</strong>
 						<time datetime="13:01:20">13:01:20</time>
@@ -39,7 +39,7 @@
 					<p>This is an example message written by a registered user. Join the conversation to write your own!</p>
 				</li>
 				<li>
-					<img src="img/user.png" width="50" height="50" />
+					<img src="img/user.png" width="48" height="48" />
 					<span>
 						<strong>Michał Jaskólski</strong>
 						<time datetime="13:01:20">13:01:20</time>
@@ -48,17 +48,15 @@
 				</li>
 			</ul>
 		</section>
-	</div>
-	<footer id="app-footer">
-		<div>
-			<button class="add-tweet-button" style="display: none;">Join the conversation</button>
-			<form class="add-tweet-form">
-				<img src="img/user.png" width="50" height="50" />
+		<section class="add-tweet">
+			<button type="button" style="display: none;">Join the conversation</button>
+			<form>
+				<img src="img/user.png" width="48" height="48" />
 				<textarea name="tweet-msg" maxlength="140"></textarea>
 				<button type="submit">send</button>
 			</form>
-		</div>
-	</footer>
+		</section>
+	</div>
 
 	<script type="text/template" id="headerTpl">
 

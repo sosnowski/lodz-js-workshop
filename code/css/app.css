@@ -8,22 +8,18 @@ body {
 	background-attachment: fixed;
 	font: 12px Verdana, Tahoma, Arial, sans-serif;
 	margin: 0;
+	overflow: hidden;
 }
 
-/* HEADER */
+/* MAIN*/
 
 #app-header {
-	position: fixed;
-	z-index: 1;
-	top: 0;
+	position: relative;
+	z-index: 2;
 	width: 100%;
 	background-color: #000;
 	border-bottom: 2px solid #5ac;
 	box-shadow: 0 0 5px 0 rgba(50, 50, 50, 0.75);
-	display: -webkit-box;
-	display: -moz-box;
-	-webkit-box-align: center;
-	-moz-box-align: center;
 }
 
 #app-header > div {
@@ -34,73 +30,88 @@ body {
 	color: #fff;
 }
 
-#app-header h1,
-.user-info {
+#app-container {
+	position: relative;
+	width: 50%;
+	height: 100%;
+	min-height: 400px;
+	margin: auto;
+}
+
+#app-footer {
+	width: 50%;
+	height: 6em;
+	margin: auto;
+	background-color: rgba(255, 255, 255, 0.8);
+}
+
+/* HEADER*/
+
+.app-slogan,
+.logged-user-info {
 	display: table-cell;
 	vertical-align: middle;
 }
 
-#app-header h1 {
+.app-slogan {
 	font-size: 1.5em;
 	font-weight: normal;
 	padding-right: 1em;
 	height: 32px;
 }
 
-#app-header h1 > strong {
+.app-slogan > strong {
 	font-weight: bold;
 }
 
-.user-info {
+.logged-user-info {
 	width: 190px;
 }
 
-.user-info img {
+.logged-user-info img {
 	float: left;
 	margin-right: 5px;
 	border: 1px solid rgba(255, 255, 255, 0.7);
 }
 
-.user-info span {
+.logged-user-info span {
 	display: inline-block;
 }
 
-.user-info strong,
-.user-info a {
+.logged-user-info strong,
+.logged-user-info a {
 	display: block;
 }
 
-.user-info strong {
+.logged-user-info strong {
 	font-size: 1.2em;
 	line-height: 1.2em;
 }
 
-.user-info a {
+.logged-user-info a {
 	font-size: 0.9em;
 	color: #fff;
 	text-decoration: none;
 	transition: opacity 300ms ease-in;
 }
 
-.user-info a:focus,
-.user-info a:hover,
-.user-info a:active {
+.logged-user-info a:focus,
+.logged-user-info a:hover,
+.logged-user-info a:active {
 	opacity: 0.5;
 }
 
-/* MAIN CONTAINER */
+/* TWEETS */
 
-#container {
-	width: 50%;
-	height: calc(100% - 11.3em);
-	min-height: 400px;
-	margin: 0 auto 1em;
- 	padding-top: 3.5em;
+.tweets {
+	overflow: auto;
+	height: calc(100% - 9rem);
+	margin-bottom: 1em;
 	background-color: rgba(255, 255, 255, 0.8);
 }
 
 .tweets ul {
-	padding: 0 0 1em;
+	padding: 1em 0 0;
 	margin: 0;
 	list-style-type: none;
 }
@@ -109,7 +120,7 @@ body {
 	position: relative;
 	overflow: hidden;
 	background-color: #fff;
-	margin: 1em 1em 0;
+	margin: 0 1em 1em;
 	padding: 1em;
 	border: 1px solid #d9d9d9;
 	padding-left: 74px;
@@ -145,45 +156,37 @@ body {
 	font-size: 0.9em;
 }
 
-/* FOOTER */
-
-#app-footer {
+.add-tweet {
+	position: relative;
 	width: 100%;
-}
-
-#app-footer > div {
-	width: 50%;
-	margin: auto;
+	height: 72px;
 	background-color: rgba(255, 255, 255, 0.8);
 }
 
-/* ADD TWEET */
-
-.add-tweet-button {
-	background-color: rgba(255, 255, 255, 0.8);
-}
-
-.add-tweet-button {
+.add-tweet button[type="button"] {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
 	width: 100%;
-	height: calc(50px + 1.5rem);
-	background: none;
+	background: #5ac;
 	border: none;
 	margin: 0;
 	padding: 0;
-	background-color: #5ac;
 	color: #fff;
 	font-size: 2em;
 	cursor: pointer;
-	transition: background 0.3s ease-in;
+	transition: all 0.3s ease-in;
 }
 
-.add-tweet-button:focus,
-.add-tweet-button:hover,
-.add-tweet-button:active {
+.add-tweet button[type="button"]:focus,
+.add-tweet button[type="button"]:hover,
+.add-tweet button[type="button"]:active {
 	background-color: #1d94ee;
 }
 
-.add-tweet-form {
+.add-tweet form {
 	display: table;
 	width: 100%;
 	padding: 1em;
@@ -192,22 +195,22 @@ body {
 	-moz-box-sizing: border-box;
 }
 
-.add-tweet-form > img,
-.add-tweet-form > textarea,
-.add-tweet-form > button {
+.add-tweet form > img,
+.add-tweet form > textarea,
+.add-tweet form > button {
 	display: inline-block;
 	vertical-align: middle;
 }
 
-.add-tweet-form > img {
+.add-tweet form > img {
 	margin-left: calc(-50px - 1em);
 	margin-right: 1em;
 }
 
-.add-tweet-form > textarea {
+.add-tweet form > textarea {
 	box-sizing: border-box;
 	-moz-box-sizing: border-box;
-	height: 50px;
+	height: 48px;
 	width: 99.4%;
 	font-family: inherit;
 	font-size: 0.9em;
@@ -218,7 +221,7 @@ body {
 	resize: none;
 }
 
-.add-tweet-form > button {
+.add-tweet form > button {
 	margin-left: -60px;
 }
 
@@ -248,6 +251,7 @@ body {
 	background-color: rgba(255, 255, 255, 0.9);
 	padding: 2rem 5rem;
 	min-width: 14rem;
+	margin-top: -3em;
 }
 
 #popup h1 {
@@ -330,8 +334,13 @@ body {
 	#app-header > div {
 		width: 96%;
 	}
-	#container,
-	#app-footer > div {
+	#app-container {
 		width: 80%;
+	}
+}
+
+@media screen and (max-height: 400px) {
+	body {
+		overflow: auto;
 	}
 }
