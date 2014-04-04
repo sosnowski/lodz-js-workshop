@@ -1,15 +1,15 @@
-APP.HeaderController = function (headerView) {
+App.HeaderController = function (headerView) {
 
-	APP.Application.on('login', this.onLogin, this);
-	APP.Application.on('tweet', this.onTweet, this);
+	App.Application.on('login', this.onLogin, this);
+	App.Application.on('tweet', this.onTweet, this);
 }
 
-APP.Helpers.inherit(APP.HeaderController, APP.BaseController);
+App.Helpers.inherits(App.HeaderController, App.BaseController);
 
-APP.HeaderController.prototype.onLogin = function () {
+App.HeaderController.prototype.onLogin = function () {
 
 }
 
-APP.HeaderController.prototype.onTweet = function () {
+App.HeaderController.prototype.onTweet = function () {
 
 }

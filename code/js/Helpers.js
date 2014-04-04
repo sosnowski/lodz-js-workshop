@@ -1,5 +1,5 @@
-APP.Helpers = {
-	inherits: function (Parent, Child) {
+App.Helpers = {
+	inherits: function (Child, Parent) {
 		var F = function () {};
 		F.prototype = Parent.prototype;
 		Child.prototype  = new F();

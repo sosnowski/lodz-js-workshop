@@ -1,21 +1,21 @@
-APP.TweetsController = function (tweetsView) {
+App.TweetsController = function (tweetsView) {
 
-	APP.Application.on('login', this.onLogin, this);
-	APP.Application.socket.on('tweet', this.onTweet, this);
+	App.Application.on('login', this.onLogin, this);
+	App.Application.socket.on('tweet', this.onTweet, this);
 	tweetsView.on('add', this.onAdd, this);
 }
 
-APP.Helpers.inherit(APP.TweetsController, APP.BaseController);
+App.Helpers.inherits(App.TweetsController, App.BaseController);
 
-APP.TweetsController.prototype.onLogin = function () {
-
-}
-
-APP.TweetsController.prototype.onTweet = function () {
+App.TweetsController.prototype.onLogin = function () {
 
 }
 
-APP.TweetsController.prototype.onAdd = function () {
+App.TweetsController.prototype.onTweet = function () {
+
+}
+
+App.TweetsController.prototype.onAdd = function () {
 
 }
 

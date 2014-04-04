@@ -1,15 +1,15 @@
-APP.LoginController = function (loginView) {
+App.LoginController = function (loginView) {
 
-	APP.Application.on('initLogin', this.onInitLogin, this);
+	App.Application.on('initLogin', this.onInitLogin, this);
 	loginView.on('submit', this.onSubmit, this);
 }
 
-APP.Helpers.inherit(APP.LoginController, APP.BaseController);
+App.Helpers.inherits(App.LoginController, App.BaseController);
 
-APP.LoginController.prototype.onInitLogin = function () {
+App.LoginController.prototype.onInitLogin = function () {
 
 }
 
-APP.LoginController.prototype.onSubmit = function () {
+App.LoginController.prototype.onSubmit = function () {
 
 }

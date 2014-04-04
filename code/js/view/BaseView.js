@@ -1,18 +1,19 @@
-APP.BaseView = function () {
-
+App.BaseView = function () {
+	App.EventEmitter.call(this);
 };
 
-APP.BaseView.prototype = {
-	getTemplate: function (templateId) {
-		var templ = document.getElementById(templateId);
-		if (!templ) {
-			throw new Error();
-		}
-		return templ.innerHTML;
-	},
-	render: function (html, callback) {
-		var el = document.createElement('div');
-		el.innerHTML = html;
-		return el.firstChild;
+App.Helpers.inherits(App.BaseView, App.EventEmitter);
+
+App.BaseView.prototype.getTemplate = function (templateId) {
+	var templ = document.getElementById(templateId);
+	if (!templ) {
+		throw new Error();
 	}
+	return templ.innerHTML;
+};
+
+App.BaseView.prototype.render = function (html, callback) {
+	var el = document.createElement('div');
+	el.innerHTML = html;
+	return el.firstChild;
 };

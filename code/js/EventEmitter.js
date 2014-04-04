@@ -1,5 +1,3 @@
-var APP = APP || {};
-
 App.EventEmitter = function () {
     this._events = {};
 }
@@ -8,7 +6,7 @@ App.EventEmitter.prototype.on = function (event, fn, scope) {
     if (typeof this._events[event] === 'undefined') {
         this._events[event] = [];
     }
-    this._events[event].push({fn: fn, scope: scope || window);
+    this._events[event].push({fn: fn, scope: scope || window});
 };
 
 App.EventEmitter.prototype.off = function (event, fn, scope) {

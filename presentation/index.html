@@ -336,6 +336,19 @@ App.Helpers = {
 					<p>We will create multiple view classes but all will inherit basic functionality from the BaseView class</p>
 
 				</section>
+
+				<section>
+					<h2>BaseView.js</h2>
+
+					<pre><code>
+App.BaseView = function () {
+	App.EventEmitter.call(this);
+};
+
+App.Helpers.inherits(App.BaseView, App.EventEmitter);
+</code></pre>
+
+				</section>
 				<section>
 					<h2>Templates</h2>
 					<pre><code>
@@ -412,6 +425,10 @@ App.Application.socket.emit('login', loginData);
 				<section>
 					<h2>Application modules</h2>
 					<p>Discussion...</p>
+				</section>
+
+				<section>
+					<h2>HTML structure</h2>
 				</section>
 
 				<section>

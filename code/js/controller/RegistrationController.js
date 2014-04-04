@@ -1,15 +1,15 @@
-APP.RegistrationController = function (regView) {
+App.RegistrationController = function (regView) {
 
-	APP.Application.on('initLogin', this.onInitLogin, this);
+	App.Application.on('initLogin', this.onInitLogin, this);
 	regView.on('submit', this.onSubmit, this);
 }
 
-APP.Helpers.inherit(APP.RegistrationController, APP.BaseController);
+App.Helpers.inherits(App.RegistrationController, App.BaseController);
 
-APP.RegistrationController.prototype.onInitLogin = function () {
+App.RegistrationController.prototype.onInitLogin = function () {
 
 }
 
-APP.RegistrationController.prototype.onSubmit = function () {
+App.RegistrationController.prototype.onSubmit = function () {
 
 }

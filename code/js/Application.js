@@ -1,11 +1,15 @@
-window.APP.Application = (function () {
+window.App.Application = (function () {
+
+	var app = new App.EventEmitter();
+
+	app.socket = io.connect(App.Config.serverUrl);
+
 	window.document.addEventListener('DOMContentLoaded', function () {
-		new APP.MainController();
-		new APP.HeaderController(new APP.HeaderView());
-		new APP.LoginController(new APP.LoginView());
-		new APP.RegistrationController(new APP.RegistrationView());
-		new APP.TweetsController(new TweetsView());
+		new App.HeaderController(new App.HeaderView());
+		new App.LoginController(new App.LoginView());
+		new App.RegistrationController(new App.RegistrationView());
+		new App.TweetsController(new App.TweetsView());
 	});
 
-	return new APP.Observer();
+	return app;
 }())
