@@ -23,7 +23,8 @@ io.sockets.on('connection', function (socket) {
 
 	socket.on('tweet', function (data) {
 		if (socket.user) {
-			data.user = _users[socket.user];
+			data.user = JSON.parse(JSON.stringify(_users[socket.user]));
+			delete data.password;
 			socket.broadcast.emit('tweet', data);
 			_tweets.push(data);
 		}
