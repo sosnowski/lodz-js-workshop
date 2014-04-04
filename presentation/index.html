@@ -38,6 +38,125 @@
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
 
+				<section>
+					<h3>Syntax</h3>
+					<p>C-like syntax</p>
+					<p>Dynamic typing</p>
+					<p>Prototype-based inheritance</p>
+				</section>
+				<section>
+					<h3>Data types</h3>
+					<div class="column" style="width: 90%; text-align: left;">
+						<p>Primary</p>
+						<ul>
+							<li>String</li>
+							<li>Number</li>
+							<li>Boolean</li>
+						</ul>
+						<p>Composite</p>
+						<ul>
+							<li>Array</li>
+							<li>Object</li>
+						</ul>
+						<p>Special</p>
+						<ul>
+							<li>Null</li>
+							<li>undefined</li>
+						</ul>
+					</div>
+				</section>
+				<section>
+					<h3>Scope</h3>
+					<p>Functional scope</p>
+					<pre>
+						<code>
+var a = 3;
+function foo () {
+	var b = 5;
+	if (a === 3) {
+		var c = 7;
+	}
+	console.log(a, b, c, this);
+}
+foo(); // 3, 5, 7, Window
+console.log(a, b, c); // 3, undefined, undefined
+						</code>
+					</pre>
+					<p>bind, call, apply</p>
+					<pre>
+						<code>
+foo.call(document); // 3, 5, 7, document
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h3>Closure</h3>
+					<pre>
+						<code>
+function foo () {
+	var a = 2;
+	return function (b) {
+		console.log(a * b);
+	}
+}
+var doubleMe = foo();
+console.log(doubleMe(3)); // 6
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h3>Observer implementation</h3>
+					<pre>
+						<code>
+var APP = APP || {};
+
+App.Observer = (function () {
+    var _events = {};
+    var Observer = function() {};
+
+    Observer.prototype.on = function (event, fn, scope) {
+    	// ...
+    };
+
+    Observer.prototype.off = function (event, fn, scope) {
+    	// ...
+    };
+
+    Observer.prototype.emit = function (event, data) {
+    	// ...
+    };
+
+    return Observer;
+})();
+						</code>
+					</pre>
+				</section>
+
+				<section>
+					<h3>Observer implementation</h3>
+					<pre>
+						<code>
+Observer.prototype.on = function (event, fn, scope) {
+    if (typeof _events[event] === 'undefined') {
+        _events[event] = [];
+    }
+    _events[event].push({fn: fn, scope: scope || window);
+};
+
+Observer.prototype.emit = function (event, data) {
+    if (typeof _events[event] !== 'undefined') {
+        var i = 0,
+            n = _events[event].length;
+        for (i; i < n; ++i) {
+            _events[event][i].fn.call(_events[event][i].scope, data);
+        }
+    }
+};
+
+						</code>
+					</pre>
+				</section>
+
 				<section>Application architecture</section>
 				<section>
 					<h3>MVC architecture</h3>
