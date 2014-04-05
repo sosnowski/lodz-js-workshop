@@ -12,20 +12,14 @@ App.TweetsController = function (tweetsView) {
 App.Helpers.inherits(App.TweetsController, App.BaseController);
 
 App.TweetsController.prototype.onLogin = function () {
-	this.view.setUserLogged(true, App.Application.currentUser);
 }
 
 App.TweetsController.prototype.onTweet = function (data) {
-	data.forEach(function (oneTweet) {
-		this.view.addTweet(oneTweet);
-	}, this);
 }
 
 App.TweetsController.prototype.onAdd = function (data) {
-	App.Application.socket.emit('tweet', data);
 }
 
 App.TweetsController.prototype.onJoinClick = function () {
-	App.Application.emit('logininit');
 }
 

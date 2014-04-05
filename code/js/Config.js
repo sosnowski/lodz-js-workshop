@@ -1,3 +1,3 @@
 App.Config = {
-	serverUrl: 'http://localhost:8080'
+	serverUrl: 'http://kotlarski.net:8080'
 };

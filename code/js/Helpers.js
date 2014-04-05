@@ -1,9 +1,5 @@
 App.Helpers = {
 	inherits: function (Child, Parent) {
-		var F = function () {};
-		F.prototype = Parent.prototype;
-		Child.prototype  = new F();
-		Child.prototype.constructor = Child;
 	},
 	gravatar: function (email, size) {
     // MD5 (Message-Digest Algorithm) by WebToolkit

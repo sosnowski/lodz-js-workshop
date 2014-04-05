@@ -10,24 +10,13 @@ App.LoginController = function (loginView) {
 App.Helpers.inherits(App.LoginController, App.BaseController);
 
 App.LoginController.prototype.onLoginInit = function () {
-	this.view.show();
 }
 
 App.LoginController.prototype.onLogin = function (data) {
-	this.view.hide();
-	App.Application.socket.emit('login', data);
 }
 
 App.LoginController.prototype.onRegisterClick = function () {
-	this.view.hide();
-	App.Application.emit('registerinit');
 }
 
 App.LoginController.prototype.onServerLogin = function (res) {
-	if(!res) {
-		alert('Login failed');
-		return;
-	}
-	App.Application.currentUser = res;
-	App.Application.emit('login');
 }
