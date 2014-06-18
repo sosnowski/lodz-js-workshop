@@ -46,79 +46,145 @@
 				<section>
 					<h2>Language basics</h2>
 				</section>
-
+				
 				<section>
-					<h3>JavaScript has:</h3>
+					<h3>JavaScript is</h3>
 					<ul>
-						<li>C-like syntax</li>
-						<li>Dynamic typing</li>
-						<li>First-class functions</li>
-						<li>Object Oriented / Functional</li>
-						<li>Prototype-based inheritance</li>
+						<li>Scripting language - designed to run in the browser (not true anymore)</il>
+						<li>Very dynamic - dynamic types, elastic syntax</li>
+						<li>C - like syntax</li>
+						<li>Object Oriented - in most cases but can be used in Functional approach</li>
 					</ul>
 				</section>
+
 				<section>
-					<h3>Data types</h3>
-					<div class="column" style="width: 90%; text-align: left;">
-						<p>Primary</p>
-						<ul>
-							<li>String</li>
-							<li>Number</li>
-							<li>Boolean</li>
-						</ul>
-						<p>Composite</p>
-						<ul>
-							<li>Array</li>
-							<li>Object</li>
-						</ul>
-						<p>Special</p>
-						<ul>
-							<li>Null</li>
-							<li>undefined</li>
-						</ul>
-					</div>
+					<h3>Variables</h3>
+					<pre><code>
+var a = 3;
+var b;
+						</code></pre>
+					<pre class="fragment"><code>
+c = 3; //global!
+						</code></pre>
 				</section>
 				<section>
-					<h3>Scope</h3>
-					<p>Function scope and context</p>
-					<pre><code>
+					<section>
+						<h3>Types in JavaScript</h3>
+						<pre><code>
+var a = 'smth'; // String
+var b = 2.3; // Number
+var c = true; //Boolean
+
+var d = null;
+var e; // var e = undefined;
+var f = 2 * "kaczka"; // NaN
+						</code></pre>
+					</section>
+					<section>
+						<h3>Complex types</h3>
+						<pre><code>
+var arr = []; // array
+arr[0] = 1;
+arr[1234] = 2;
+arr[5]; //?
+arr.length; //1235
+
+var arr2 = [1,2,"smth", null, NaN, [1,2]];
+						</code></pre>
+						<pre class="fragment"><code>
+var obj = {};
+obj.smth = "Some value";
+
+obj = {
+	key: 1,
+	key2: 'some value',
+	"some complex key": 1234,
+	child: {
+		value: 1
+	}
+};
+obj.child.value; // 1;
+obj["some complex key"]; 1234
+						</code></pre>
+					</section>
+				</section>
+			
+				<section>
+					<h2>Functions</h2>
+					<section>
+						<h3>Creating a function</h3>
+						<pre><code>
+function someFunc() {
+
+}
+
+var someFunc = function () {
+	//do smth
+}
+						</code></pre>
+						
+					</section>
+					<section>
+						<h3>Arguments</h3>
+						<pre><code>
+var someFunc = function (arg1, arg2, arg3) {
+	console.log(arg1, arg2, arg3);
+};
+
+someFunc(1,2,3); //1, 2, 3
+
+someFunc = function () {
+	console.log(arguments[0], arguments[1], arguments[2])
+};
+someFunc(1,2,3); //1,2,3;
+						</code></pre>
+						
+					</section>
+					
+					<section>
+						<h3>Scope</h3>
+						<p>Function scope</p>
+						<pre><code>
 var a = 3;
 function foo () {
 	var b = 5;
 	if (a === 3) {
 		var c = 7;
 	}
-	console.log(a, b, c, this);
+	console.log(a, b, c);
 }
-foo(); // 3, 5, 7, Window
+foo(); // 3, 5, 7
 console.log(a, b, c); // 3, undefined, undefined
+console.log(window.a); // 3
 						</code></pre>
-				</section>
-				<section>
-					<h3>Context</h3>
-					<p>"this" in JavaScript is a dynamic value, it depends on how the function i called</p>
+					</section>
+					
+					<section>
+						<h3>Context</h3>
+						<p>"this" in JavaScript is a dynamic value, it depends on how the function i called</p>
 
-					<pre><code>
+						<pre><code>
 var func = function () { console.log(this); };
 func(); // window
-						</code></pre>
-					<pre><code>
+							</code></pre>
+						<pre><code>
 var obj = {};
 obj.func = func;
 obj.func(); // obj
-					</code></pre>
-					<p>Change context with bind, call or apply</p>
-					<pre><code>
+						</code></pre>
+						<p>Change context with bind, call or apply</p>
+						<pre><code>
 func.call(someObj); //someObj
 func.apply(someObj); //someObj
 var func2 = func.bind(someObj);
 func(); //window
 func2(); //someObj
-						</code></pre>
-				</section>
-				<section>
-					<h3>Closure</h3>
-					<pre><code>
+							</code></pre>
+					</section>
+					
+					<section>
+						<h3>Closure</h3>
+						<pre><code>
 function foo () {
 	var a = 2;
 	return function (b) {
@@ -127,7 +193,114 @@ function foo () {
 }
 var doubleMe = foo();
 console.log(doubleMe(3)); // 6
+							</code></pre>
+					</section>
+				</section>
+			
+				<section>
+					<section>
+						<h2>OOP JavaScript</h2>
+						<p>JavaScript is object oriented language. But its characteristic is different, compared to other languages.</p>
+					</section>
+					<section>
+						<h3>Instance and the class</h3>
+						Object is an instance of the class.
+						<pre><code>
+	var obj = new Object();
+	var smth = new SomeClass();
 						</code></pre>
+						<p>What actually is class in JavaScript?</p>
+					</section>
+					<section>
+						<h3>Class in JavaScript</h3>
+						<p class="fragment">Class is a function...</p>
+						<pre class="fragment"><code>
+function SomeClass() {
+	this.value = "Some Value"; // this is our class instance
+	this.printValue = function () {
+		console.log(this.value);
+	}
+}
+var obj = new SomeClass();
+obj.printValue() // Some Value
+						</code></pre>
+					</section>
+					
+					<section>
+						<h3>Class methods (prototype)</h3>
+						<p>Konstruktor function is called every time the instance is created. It's ok for instance attributes, but not for methods</p>
+						<pre class="fragment"><code>
+var SomeClass = function (name) {
+	this.instanceMethod = function () {};
+}
+
+SomeClass.prototype.classMethod = function () {
+}
+var obj1 = new SomeClass(), obj2 = new SomeClass();
+obj1.instanceMethod === obj.instanceMethod // false
+obj1.classMethod === obj.classMethod // true
+						</code></pre>
+					</section>
+					<section>
+						<h3>Where is the magic?</h3>
+						<p>"new" operator is attaching the "prototype" attribute to the object prototype chain</p>
+						<p><img src="img/prototypes.png"/></p>
+					</section>
+				</section>
+			
+				<section>
+					<section>
+						<h2>Inheritance</h2>
+						<img src="img/ee_inheritance.png"/>
+					</section>
+					<section>
+						<h2>Inheritance - JavaScript version</h2>
+						<p>Inheritance in JavaScript is based on prototypes.</p> <p>So called prototype chaing is used to store and call inherited methods / attributes.</p>
+						<p><img src="img/prototypes.png"/></p>
+					</section>
+					<section>
+						<h2>Inheritance - implementation</h2>
+						<pre><code>
+	App.Helpers = {
+		inherits: function (Parent, Child) {
+			//We need to create a proper prototype chain here
+		}
+	}
+	</code></pre>
+					</section>
+					<section>
+						<h2>Inheritance - implementation</h2>
+						<pre><code>
+		inherits: function (Parent, Child) {
+			Child.prototype = Parent.prototype;
+		}
+	</code></pre>
+						<p class="fragment error">NOPE</p>
+					</section>
+					<section>
+						<h2>Inheritance - implementation</h2>
+						<pre><code>
+		inherits: function (Parent, Child) {
+			Child.prototype = new Parent();
+		}
+						</code></pre>
+						<pre class="fragment"><code>
+		Parent = function () {
+			this.smth = performHeavyOperation();
+		}
+						</code></pre>
+					</section>
+
+					<section>
+						<h2>Inheritance - implementation</h2>
+						<pre><code>
+		inherits: function (Parent, Child) {
+			var F = function () {};
+			F.prototype = Parent.prototype;
+			Child.prototype = new F();
+			Child.prototype.constructor = Child;
+		}</code></pre>
+					</section>
 				</section>
 				<section>
 					<h2>Time to practice</h2>
@@ -177,13 +350,13 @@ App.EventEmitter.prototype.on = function (event, fn, scope) {
 				<section>
 					<h3>Event emitter implementation</h3>
 					<pre><code>
-App.EventEmitter.prototype.off = function (event, fn, scope) {
+App.EventEmitter.prototype.off = function (event, fn, ctx) {
     if (typeof this._events[event] !== 'undefined') {
         var n = _events[event].length;
         while (n--) {
             if (this._events[event][n].fn === fn
-            	&& (typeof scope === 'undefined'
-            		|| scope === this._events[event][n].scope
+            	&& (typeof ctx === 'undefined'
+            		|| ctx === this._events[event][n].ctx
             	)
             ) {
                 this._events[event].splice(n, 1);
@@ -202,7 +375,7 @@ App.EventEmitter.prototype.emit = function (event, data) {
         var i = 0,
             n = this._events[event].length;
         for (i; i < n; ++i) {
-            this._events[event][i].fn.call(this._events[event][i].scope, data);
+            this._events[event][i].fn.call(this._events[event][i].ctx, data);
         }
     }
 };
@@ -237,7 +410,7 @@ App.EventEmitter.prototype.emit = function (event, data) {
 					<div class="columns">
 						<div><p>Typical MVC (ExtJS)</p><img src="img/mvc_extjs.png"/></div>
 						<div><p>MVVM (AngularJS)</p><img src="img/mvc_angular.png"/></div>
-						<div><p>MV* (Backbone)</p><img src="img/mvc_backbone.png"/></div>
+						<div><p>MV(W) (Backbone)</p><img src="img/mvc_backbone.png"/></div>
 					</div>
 				</section>
 				<section>
@@ -276,59 +449,7 @@ App.BaseModel.prototype = {
 }
 					</code></pre>
 				</section>
-				<section>
-					<h2>Inheritance</h2>
-					<p>View need to emit events. So it need to inherit EventEmitter functionality.</p>
-					<img src="img/ee_inheritance.png"/>
-				</section>
-				<section>
-					<h2>Inheritance - JavaScript version</h2>
-					<p>Inheritance in JavaScript is based on prototypes.</p> <p>So called prototype chaing is used to store and call inherited methods / attributes.</p>
-					<p><img src="img/prototypes.png"/></p>
-				</section>
-				<section>
-					<h2>Inheritance - implementation</h2>
-					<pre><code>
-App.Helpers = {
-	inherits: function (Parent, Child) {
-		//We need to create a proper prototype chain here
-	}
-}
-</code></pre>
-				</section>
-				<section>
-					<h2>Inheritance - implementation</h2>
-					<pre><code>
-	inherits: function (Parent, Child) {
-		Child.prototype = Parent.prototype;
-	}
-</code></pre>
-					<p class="fragment error">NOPE</p>
-				</section>
-				<section>
-					<h2>Inheritance - implementation</h2>
-					<pre><code>
-	inherits: function (Parent, Child) {
-		Child.prototype = new Parent();
-	}
-					</code></pre>
-					<pre class="fragment"><code>
-	Parent = function () {
-		this.smth = performHeavyOperation();
-	}
-					</code></pre>
-				</section>
-
-				<section>
-					<h2>Inheritance - implementation</h2>
-					<pre><code>
-	inherits: function (Parent, Child) {
-		var F = function () {};
-		F.prototype = Parent.prototype;
-		Child.prototype = new F();
-		Child.prototype.constructor = Child;
-	}</code></pre>
-				</section>
+				
 
 				<section>
 					<h2>View</h2>
