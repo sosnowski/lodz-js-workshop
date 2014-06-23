@@ -12,6 +12,6 @@ App.Helpers.inherits(App.HeaderView, App.BaseView);
 App.HeaderView.prototype.setUserInfo = function (user) {
 	this._userInfo.classList.remove('no-user');
 
-	this._userInfo.querySelector('span').innerText = user.login;
+	this._userInfo.querySelector('span').innerHTML = user.login;
 	this._userInfo.querySelector('img').src = App.Helpers.gravatar(user.login, 20);
 }
