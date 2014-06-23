@@ -228,7 +228,7 @@ obj.printValue() // Some Value
 					
 					<section>
 						<h3>Class methods (prototype)</h3>
-						<p>Konstruktor function is called every time the instance is created. It's ok for instance attributes, but not for methods</p>
+						<p>Constructor function is called every time the instance is created. It's ok for instance attributes, but not for methods</p>
 						<pre class="fragment"><code>
 var SomeClass = function (name) {
 	this.instanceMethod = function () {};
@@ -352,7 +352,7 @@ App.EventEmitter.prototype.on = function (event, fn, scope) {
 					<pre><code>
 App.EventEmitter.prototype.off = function (event, fn, ctx) {
     if (typeof this._events[event] !== 'undefined') {
-        var n = _events[event].length;
+        var n = this._events[event].length;
         while (n--) {
             if (this._events[event][n].fn === fn
             	&& (typeof ctx === 'undefined'
