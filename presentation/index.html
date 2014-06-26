@@ -110,7 +110,9 @@ obj["some complex key"]; 1234
 				</section>
 			
 				<section>
-					<h2>Functions</h2>
+					<section>
+						<h2>Functions</h2>
+					</section>
 					<section>
 						<h3>Creating a function</h3>
 						<pre><code>
@@ -120,6 +122,7 @@ function someFunc() {
 
 var someFunc = function () {
 	//do smth
+	return "smth";
 }
 						</code></pre>
 						
@@ -235,7 +238,10 @@ var SomeClass = function (name) {
 }
 
 SomeClass.prototype.classMethod = function () {
+
 }
+
+
 var obj1 = new SomeClass(), obj2 = new SomeClass();
 obj1.instanceMethod === obj.instanceMethod // false
 obj1.classMethod === obj.classMethod // true
@@ -410,7 +416,7 @@ App.EventEmitter.prototype.emit = function (event, data) {
 					<div class="columns">
 						<div><p>Typical MVC (ExtJS)</p><img src="img/mvc_extjs.png"/></div>
 						<div><p>MVVM (AngularJS)</p><img src="img/mvc_angular.png"/></div>
-						<div><p>MV(W) (Backbone)</p><img src="img/mvc_backbone.png"/></div>
+						<div><p>MV(W*) (Backbone)</p><img src="img/mvc_backbone.png"/></div>
 					</div>
 				</section>
 				<section>
@@ -473,11 +479,11 @@ App.Helpers.inherits(App.BaseView, App.EventEmitter);
 				<section>
 					<h2>Templates</h2>
 					<pre><code>
-&lt;div class="template" id="templateId"&gt;
+&lt;script id="templateId" type="text/template"&gt;
 	&lt;div&gt;
 		Some template it is
 	&lt;/div&gt;
-&lt;/div&gt;
+&lt;/script&gt;
 				</code></pre
 				>
 				<pre class="fragment"><code>
@@ -735,13 +741,6 @@ App.Application.socket.emit('tweet', data);
 						</code></pre>
 					</section>
 
-				</section>
-
-				<section>
-					<section>
-						<h2>Header</h2>
-						<h4>Display some additional info</h4>
-					</section>
 				</section>
 
 				<section>

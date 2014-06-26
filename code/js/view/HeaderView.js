@@ -1,5 +1,6 @@
 App.HeaderView = function () {
 	App.BaseView.call(this);
+	
 	this._el = this.render(this.getTemplate('headerTpl'));
 	this._counter = this._el.querySelector('.app-slogan strong');
 	this._userInfo = this._el.querySelector('.logged-user-info');

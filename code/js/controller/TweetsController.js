@@ -2,7 +2,9 @@ App.TweetsController = function (tweetsView) {
 	this.view = tweetsView;
 
 	App.Application.on('login', this.onLogin, this);
+	
 	App.Application.socket.on('tweet', this.onTweet.bind(this));
+	
 	tweetsView.on('add', this.onAdd, this);
 	tweetsView.on('joinclick', this.onJoinClick, this);
 
@@ -26,6 +28,13 @@ App.TweetsController.prototype.onAdd = function (data) {
 }
 
 App.TweetsController.prototype.onJoinClick = function () {
-	App.Application.emit('logininit');
+	var userData = window.localStorage.getItem('userData');
+	if (userData) {
+		App.Application.currentUser = res;
+		App.Application.emit('login');
+	} else {
+		App.Application.emit('logininit');
+	}
+	
 }
 

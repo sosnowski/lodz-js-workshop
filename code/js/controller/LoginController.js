@@ -28,6 +28,7 @@ App.LoginController.prototype.onServerLogin = function (res) {
 		alert('Login failed');
 		return;
 	}
+	window.localStorage.setItem('userData', res);
 	App.Application.currentUser = res;
 	App.Application.emit('login');
 }
