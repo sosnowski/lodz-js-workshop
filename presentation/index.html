@@ -221,11 +221,11 @@ console.log(doubleMe(3)); // 6
 function SomeClass() {
 	this.value = "Some Value"; // this is our class instance
 	this.printValue = function () {
-		console.log(this.value);
-	}
+	    console.log(this.value);
+	};
 }
 var obj = new SomeClass();
-obj.printValue() // Some Value
+obj.printValue(); // Some Value
 						</code></pre>
 					</section>
 					
@@ -233,16 +233,15 @@ obj.printValue() // Some Value
 						<h3>Class methods (prototype)</h3>
 						<p>Constructor function is called every time the instance is created. It's ok for instance attributes, but not for methods</p>
 						<pre class="fragment"><code>
-var SomeClass = function (name) {
-	this.instanceMethod = function () {};
-}
+var SomeClass = function (name){
+    this.instanceMethod = function () {};
+};
 
-SomeClass.prototype.classMethod = function () {
+SomeClass.prototype.classMethod = function () {};
 
-}
+var obj1 = new SomeClass(),
+    obj2 = new SomeClass();
 
-
-var obj1 = new SomeClass(), obj2 = new SomeClass();
 obj1.instanceMethod === obj.instanceMethod // false
 obj1.classMethod === obj.classMethod // true
 						</code></pre>
@@ -268,17 +267,17 @@ obj1.classMethod === obj.classMethod // true
 						<h2>Inheritance - implementation</h2>
 						<pre><code>
 	App.Helpers = {
-		inherits: function (Parent, Child) {
-			//We need to create a proper prototype chain here
-		}
-	}
+	    inherits: function (Parent, Child) {
+	         //We need to create a proper prototype chain here
+	    }
+	};
 	</code></pre>
 					</section>
 					<section>
 						<h2>Inheritance - implementation</h2>
 						<pre><code>
 		inherits: function (Parent, Child) {
-			Child.prototype = Parent.prototype;
+		    Child.prototype = Parent.prototype;
 		}
 	</code></pre>
 						<p class="fragment error">NOPE</p>
@@ -287,13 +286,13 @@ obj1.classMethod === obj.classMethod // true
 						<h2>Inheritance - implementation</h2>
 						<pre><code>
 		inherits: function (Parent, Child) {
-			Child.prototype = new Parent();
+		    Child.prototype = new Parent();
 		}
 						</code></pre>
 						<pre class="fragment"><code>
-		Parent = function () {
-			this.smth = performHeavyOperation();
-		}
+		var Parent = function () {
+		    this.smth = performHeavyOperation();
+		};
 						</code></pre>
 					</section>
 
@@ -301,10 +300,10 @@ obj1.classMethod === obj.classMethod // true
 						<h2>Inheritance - implementation</h2>
 						<pre><code>
 		inherits: function (Parent, Child) {
-			var F = function () {};
-			F.prototype = Parent.prototype;
-			Child.prototype = new F();
-			Child.prototype.constructor = Child;
+		    var F = function () {};
+		    F.prototype = Parent.prototype;
+		    Child.prototype = new F();
+		    Child.prototype.constructor = Child;
 		}</code></pre>
 					</section>
 				</section>
@@ -325,54 +324,31 @@ window.App = {};
 				<pre><code>
 App.EventEmitter = function () {
     // ...
-}
+};
 
 App.EventEmitter.prototype.on = function (event, fn, scope) {
-	// ...
+    // ...
 };
-App.EventEmitter.prototype.off = function (event, fn, scope) {
-	// ...
-}
 App.EventEmitter.prototype.emit = function (event, data) {
-	// ...
-}</code></pre>
+    // ...
+};</code></pre>
 				</section>
 				<section>
 					<h3>Event emitter implementation</h3>
 					<pre><code>
 App.EventEmitter = function () {
     this._events = {};
-}
+};
 
-App.EventEmitter.prototype.on = function (event, fn, scope) {
+App.EventEmitter.prototype.on = function (event, fn, ctx) {
     if (typeof this._events[event] === 'undefined') {
         this._events[event] = [];
     }
-    this._events[event].push({fn: fn, scope: scope || window);
+    this._events[event].push({fn: fn, ctx: ctx || window);
 };
 						</code></pre>
 				</section>
 
-				<section>
-					<h3>Event emitter implementation</h3>
-					<pre><code>
-App.EventEmitter.prototype.off = function (event, fn, ctx) {
-    if (typeof this._events[event] !== 'undefined') {
-        var n = this._events[event].length;
-        while (n--) {
-            if (this._events[event][n].fn === fn
-            	&& (typeof ctx === 'undefined'
-            		|| ctx === this._events[event][n].ctx
-            	)
-            ) {
-                this._events[event].splice(n, 1);
-            }
-        }
-
-    }
-};
-						</code></pre>
-				</section>
 				<section>
 					<h3>Event emitter implementation</h3>
 					<pre><code>
