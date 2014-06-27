@@ -30,6 +30,16 @@ body {
 	color: #fff;
 }
 
+#app-header .logout {
+	float: right;
+	cursor: pointer;
+	text-decoration: underline;
+}
+
+#app-header .no-user .logout {
+	display: none;
+}
+
 #app-container {
 	position: relative;
 	width: 50%;
