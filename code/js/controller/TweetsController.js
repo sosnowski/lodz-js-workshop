@@ -28,9 +28,9 @@ App.TweetsController.prototype.onAdd = function (data) {
 }
 
 App.TweetsController.prototype.onJoinClick = function () {
-	var userData = window.localStorage.getItem('userData');
+	var userData = JSON.parse(window.localStorage.getItem('userData'));
 	if (userData) {
-		App.Application.currentUser = res;
+		App.Application.currentUser = userData;
 		App.Application.emit('login');
 	} else {
 		App.Application.emit('logininit');
