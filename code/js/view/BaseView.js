@@ -13,7 +13,5 @@ App.BaseView.prototype.getTemplate = function (templateId) {
 };
 
 App.BaseView.prototype.render = function (html, callback) {
-	var el = document.createElement('div');
-	el.innerHTML = html;
-	return el.firstElementChild;
+	//TODO
 };

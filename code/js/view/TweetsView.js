@@ -30,25 +30,10 @@ App.TweetsView.prototype.setUserLogged = function (logged, user) {
 }
 
 App.TweetsView.prototype.onSubmit = function (event) {
-	var form, data;
-	event.preventDefault();
-
-	form = event.target;
-	data = {
-        msg: form.elements['tweet-msg'].value,
-        time: Date.now()
-	};
-	this.emit('add', data);
-	form.reset();
+	//TODO
 }
 
 App.TweetsView.prototype.addTweet = function (data) {
-	var newEl = this._tweetElement.cloneNode(true);
-	newEl.querySelector('span strong').innerText = data.user.login;
-	newEl.querySelector('img').src = App.Helpers.gravatar(data.user.login, 40);
-	newEl.querySelector('time').innerText = new Date(data.time);
-	newEl.querySelector('p').innerText = data.msg;
-
-	this._tweetsList.appendChild(newEl);
+	//TODO
 	this._el.querySelector('.tweets').scrollTop = this._el.querySelector('.tweets').scrollHeight;
 }

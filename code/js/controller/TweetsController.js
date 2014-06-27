@@ -3,12 +3,10 @@ App.TweetsController = function (tweetsView) {
 
 	App.Application.on('login', this.onLogin, this);
 	
-	App.Application.socket.on('tweet', this.onTweet.bind(this));
-	
 	tweetsView.on('add', this.onAdd, this);
 	tweetsView.on('joinclick', this.onJoinClick, this);
 
-	App.Application.socket.emit('load');
+	//TODO - sockets communication
 }
 
 App.Helpers.inherits(App.TweetsController, App.BaseController);
@@ -18,9 +16,7 @@ App.TweetsController.prototype.onLogin = function () {
 }
 
 App.TweetsController.prototype.onTweet = function (data) {
-	data.forEach(function (oneTweet) {
-		this.view.addTweet(oneTweet);
-	}, this);
+	//TODO
 }
 
 App.TweetsController.prototype.onAdd = function (data) {

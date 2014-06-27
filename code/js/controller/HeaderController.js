@@ -12,6 +12,5 @@ App.HeaderController.prototype.onLogin = function () {
 }
 
 App.HeaderController.prototype.logout = function () {
-	window.localStorage.removeItem('userData');
-	window.location.reload();
+	//TODO
 }

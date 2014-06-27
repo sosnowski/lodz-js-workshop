@@ -8,11 +8,9 @@ App.RegistrationController = function (regView) {
 App.Helpers.inherits(App.RegistrationController, App.BaseController);
 
 App.RegistrationController.prototype.onRegister = function (data) {
-	this.view.hide();
-	App.Application.socket.emit('register', data);
-	App.Application.emit('logininit');
+	//TODO
 }
 
 App.RegistrationController.prototype.onRegisterInit = function () {
-	this.view.show();
+	//TODO
 }
