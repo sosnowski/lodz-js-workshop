@@ -9,3 +9,11 @@ ul {
 	display: inline-block;
 	width: 30%;
 }
+.reveal table {
+	border-collapse: collapse;
+}
+.reveal table td {
+	border: 1px solid #fff;
+	border-width: 1px 0;
+	padding: 1px 20px;
+}

@@ -111,6 +111,145 @@ obj["some complex key"]; 1234
 			
 				<section>
 					<section>
+						<h3>Operators</h3>
+					</section>
+
+					<section>
+						<h3>Assignment operators</h3>
+						<pre class="fragment"><code>
+x += y	  // x = x + y
+x -= y	  // x = x - y
+x *= y	  // x = x * y
+x /= y	  // x = x / y
+x %= y	  // x = x % y
+x <<= y	  // x = x << y
+x >>= y	  // x = x >> y
+x >>>= y  // x = x >>> y
+x &= y	  // x = x & y
+x ^= y	  // x = x ^ y
+x |= y	  // x = x | y
+						</code></pre>
+					</section>
+
+					<section>
+						<h3>Comparison operators</h3>
+						<pre class="fragment"><code>
+3 == "3"    // true
+3 != ""     // true
+3 === "3"   // false
+3 !== "3"   // true
+"12" > 2    // true
+"12" >= 3   // true
+2 < 12      // true
+"2" < "12"  // true
+12 <= 2     // false
+"12" <= "2" // true
+						</code></pre>
+					</section>
+
+					<section>
+						<h3>Bitwise operators</h3>
+						<pre class="fragment"><code>
+15 & 9	// 9
+15 | 9	// 15
+15 ^ 9	// 6
+~15     // -16
+~9      // -10
+
+9<<2    // 36
+9>>2    // 2
+19>>>2  // 4
+						</code></pre>
+					</section>
+					<section>
+						<h3>Logical operators</h3>
+						<pre class="fragment"><code>
+true && false  // false
+true || false  // true
+!true          // false
+
+"" && "apple"  // ""
+"apple" && ""  // ""
+"" || "apple"  // "apple"
+"apple" || ""  // "apple"
+						</code></pre>
+					</section>
+
+					<section>
+						<h3>Operator precedence</h3>
+<table>
+	<thead>
+		<tr>
+			<td>Operator type</td><td>Individual operators</td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>member</td><td>. []</td>
+		</tr>
+		<tr>
+			<td>call / create instance</td><td>() new</td>
+		</tr>
+		<tr>
+			<td>negation/increment</td><td>! ~ - + ++ -- typeof void delete</td>
+		</tr>
+		<tr>
+			<td>multiply/divide</td><td>* / %</td>
+		</tr>
+		<tr>
+			<td>addition/subtraction</td><td>+ -</td>
+		</tr>
+		<tr>
+			<td>bitwise shift</td><td><< >> >>></td>
+		</tr>
+		<tr>
+			<td>relational</td><td>< <= > >= in instanceof</td>
+		</tr>
+		<tr>
+			<td>equality</td><td>== != === !==</td>
+		</tr>
+		<tr>
+			<td>bitwise-and</td><td>&</td>
+		</tr>
+	</tbody>
+</table>
+</section>
+<section>
+<table>
+	<thead>
+		<tr>
+			<td>Operator type</td><td>Individual operators</td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>bitwise-xor</td><td>^</td>
+		</tr>
+		<tr>
+			<td>bitwise-or</td><td>|</td>
+		</tr>
+		<tr>
+			<td>logical-and</td><td>&&</td>
+		</tr>
+		<tr>
+			<td>logical-or</td><td>||</td>
+		</tr>
+		<tr>
+			<td>conditional</td><td>?:</td>
+		</tr>
+		<tr>
+			<td>assignment</td><td>= += -= *= /= %= <<= >>= >>>= &= ^= |=</td>
+		</tr>
+		<tr>
+			<td>comma</td><td>,</td>
+		</tr>
+	</tbody>
+</table>
+					</section>
+				</section>
+
+				<section>
+					<section>
 						<h2>Functions</h2>
 					</section>
 					<section>
@@ -164,7 +303,7 @@ console.log(window.a); // 3
 					
 					<section>
 						<h3>Context</h3>
-						<p>"this" in JavaScript is a dynamic value, it depends on how the function i called</p>
+						<p>"this" in JavaScript is a dynamic value, it depends on how the function is called</p>
 
 						<pre><code>
 var func = function () { console.log(this); };
@@ -189,10 +328,10 @@ func2(); //someObj
 						<h3>Closure</h3>
 						<pre><code>
 function foo () {
-	var a = 2;
-	return function (b) {
-		console.log(a * b);
-	}
+    var a = 2;
+    return function (b) {
+        console.log(a * b);
+    }
 }
 var doubleMe = foo();
 console.log(doubleMe(3)); // 6
