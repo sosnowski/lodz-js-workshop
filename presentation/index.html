@@ -337,6 +337,28 @@ var doubleMe = foo();
 console.log(doubleMe(3)); // 6
 							</code></pre>
 					</section>
+
+					<section>
+						<h3>Functional inheritance</h3>
+						<pre class="fragment"><code>
+function base(spec) {
+    var that = {};
+    that.name = spec.name;
+    return that;
+}
+
+function child(spec) {
+    var that = base(spec); // Create the object through the "base" constructor
+    that.sayHello = function() {
+        return 'Hello, I\'m ' + that.name;
+    };
+    return that;
+}
+
+var object = child({ name: 'a functional object' });
+result.textContent = object.sayHello();
+						</code></pre>
+					</section>
 				</section>
 			
 				<section>
